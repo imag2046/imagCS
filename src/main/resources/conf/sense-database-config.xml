@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this configure file contain some global settings for the application -->
+<configuration>
+    <!--hbase settings -->
+    <!--deeplearn sense database config -->
+    <property>
+		  <name>deeplearn.jdbc.url</name>
+		  <value>jdbc:mysql://172.29.32.33:3306/dp_test?useUnicode=true&amp;characterEncoding=UTF-8&amp;charSet=UTF-8</value>
+	</property>
+	<property>
+		  <name>deeplearn.jdbc.username</name>
+		  <value>wxm</value>
+	</property>
+	<property>
+		  <name>deeplearn.jdbc.password</name>
+		  <value>123456</value>
+	</property>
+	<property>
+		  <name>deeplearn.entity.packagesToScan</name>
+		  <value>com.whi8per.sense.deeplearn.data.entity</value>
+	</property>
+</configuration>
