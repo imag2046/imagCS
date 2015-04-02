@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.http.Header;
-import org.jsoup.*;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
