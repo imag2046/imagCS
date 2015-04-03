@@ -9,6 +9,16 @@ import com.lakeside.data.sqldb.MysqlDataSource;
  * @author xmwang
  * @ 2015
  */
+
+/*
+ * description 
+ * MySQL database operation
+ * save data into database
+ * get data from database
+ */
+
+
+
 public class ImagSQLOpera {
 	
 	
