@@ -20,10 +20,15 @@ package imag.crawler.examples.basic;
 import imag.crawler.crawler.Page;
 import imag.crawler.crawler.WebCrawler;
 import imag.crawler.parser.HtmlParseData;
+import imag.crawler.tests.MysqlDao;
 import imag.crawler.url.WebURL;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -34,6 +39,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.lakeside.data.*;
+import com.lakeside.data.sqldb.MysqlDataSource;
 
 
 /**
@@ -371,7 +377,34 @@ public class BasicCrawler extends WebCrawler {
   
    // 添加操作Database的方法;
    // mysql or hbase; 
-    
+  public void saveGroupInfoIntoSQL(String filePath) {
+		// resource;
+		MysqlDao mysqlDao = new MysqlDao();
+		MysqlDataSource mysql = mysqlDao.getDataSource();
+		// get the data in the file ;
+		// img_group list;
+		String sql = "INSERT INTO `dp_img_test`.`dp_all_img_group` (`id`, `group_id`, `img_id`, `pos_neg_flag`, `img_order`) VALUES (NULL, :g_id, :img_id, :flag, :order);";
+		// String filePath = "/home/wxm/saveResults/getImg_Group_Info.txt";
+		List<String> list = new ArrayList<String>();
+		try {
+			//list = getList(filePath);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		Map[] maps = new Map[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) != null) {
+				HashMap<String, Object> paramMap = new HashMap();
+				String strLine[] = list.get(i).split(",");
+				paramMap.put("g_id", strLine[0]);
+				paramMap.put("img_id", strLine[1]);
+				paramMap.put("flag", strLine[2]);
+				paramMap.put("order", strLine[3]);
+				maps[i] = paramMap;
+			}
+		}
+		mysqlDao.execute(sql, maps);
+	}
   
   
 }
