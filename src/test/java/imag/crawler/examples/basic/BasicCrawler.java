@@ -375,9 +375,11 @@ public class BasicCrawler extends WebCrawler {
 	  }
 	 }
   
-   // 添加操作Database的方法;
    // mysql or hbase; 
-  public void saveGroupInfoIntoSQL(String filePath) {
+  /**
+ * @param filePath
+ */
+public void saveGroupInfoIntoSQL(String filePath) {
 		// resource;
 		MysqlDao mysqlDao = new MysqlDao();
 		MysqlDataSource mysql = mysqlDao.getDataSource();
