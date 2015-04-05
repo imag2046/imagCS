@@ -2,14 +2,11 @@
 package imag.crawler.examples.basic;
 
 import imag.crawler.crawler.Page;
-import imag.crawler.examples.basic.BasicCrawler;
 import imag.crawler.parser.HtmlParseData;
-import imag.crawler.tests.MysqlDao;
 import imag.crawler.url.WebURL;
+import imag.databaseSql.ImagSQLDao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +26,7 @@ public class TencentNewsCrawler extends BasicCrawler{
 
 	@Override
 	  public void visit(Page page) {
+		
 		    int docid = page.getWebURL().getDocid(); //这是程序定义的ID  
 		    String url = page.getWebURL().getURL(); //URL地址  
 		    String domain = page.getWebURL().getDomain(); //域名，如baidu.com  
@@ -49,6 +47,7 @@ public class TencentNewsCrawler extends BasicCrawler{
 		    String strContText = ""; 
 		    String strTitle = "";
 		    String strImgUrl = "";
+		    String strVideoUrl = "";
 		      
 		    if (page.getParseData() instanceof HtmlParseData) {  
 		        HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();  
@@ -113,43 +112,29 @@ public class TencentNewsCrawler extends BasicCrawler{
 	        super.saveIntoFile(file,url,parentUrl,responseHeaders,strTitle,strContText);
 	        
 	        // save into sql;
-	        MysqlDao mysqlDao = new MysqlDao();
-			MysqlDataSource mysql = mysqlDao.getDataSource();
-			String sql = "INSERT INTO `imagdata`.`newsdatatest` (`id`, `news_url`, `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :g_id, :img_id, :flag, :order);";
-			
+	        ImagSQLDao mysqlDao = new ImagSQLDao();
+	        MysqlDataSource mysql = mysqlDao.getDataSource();
+			String sql = "INSERT INTO `imagdata`.`newsdatatest` (`id`, `news_url`, `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :newsUrl, :parentUrl, :subDomain, :docId,:imgUrls,:videoUrls,:newsTitle,:newsDocument);";
+			Map[] maps = new Map[1];
+			for (int i = 0; i < 1; i++) {
+					HashMap<String, Object> paramMap = new HashMap();
+					paramMap.put("newsUrl", url);
+					paramMap.put("parentUrl", parentUrl==null?"NULL":parentUrl);
+					paramMap.put("subDomain", domain);
+					paramMap.put("docId", docid);
+					paramMap.put("imgUrls", strImgUrl.length()==0?"NULL":strImgUrl);
+					paramMap.put("videoUrls", strVideoUrl.length()==0?"NULL":strVideoUrl);
+					paramMap.put("newsTitle", strTitle);
+					paramMap.put("newsDocument", strContText);
+					maps[i] = paramMap;
+			}
+			mysqlDao.execute(sql, maps);
 	        
 		    System.out.println("============="); 
 	  }
 	
 	
-	public void saveIntoSql(String filePath) {
-		// resource;
-		MysqlDao mysqlDao = new MysqlDao();
-		MysqlDataSource mysql = mysqlDao.getDataSource();
-		// get the data in the file ;
-		// img_group list;
-		String sql = "INSERT INTO `dp_img_test`.`dp_all_img_group` (`id`, `group_id`, `img_id`, `pos_neg_flag`, `img_order`) VALUES (NULL, :g_id, :img_id, :flag, :order);";
-		// String filePath = "/home/wxm/saveResults/getImg_Group_Info.txt";
-		List<String> list = new ArrayList<String>();
-		try {
-			list = getList(filePath);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		Map[] maps = new Map[list.size()];
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) != null) {
-				HashMap<String, Object> paramMap = new HashMap();
-				String strLine[] = list.get(i).split(",");
-				paramMap.put("g_id", strLine[0]);
-				paramMap.put("img_id", strLine[1]);
-				paramMap.put("flag", strLine[2]);
-				paramMap.put("order", strLine[3]);
-				maps[i] = paramMap;
-			}
-		}
-		mysqlDao.execute(sql, maps);
-	}
+	
 	
 	
 	

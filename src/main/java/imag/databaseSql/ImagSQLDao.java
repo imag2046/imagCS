@@ -37,7 +37,7 @@ public class ImagSQLDao {
 	 */
 	public void execute(String sql,Map[] data) {
 		int[] update = this.getJdbcTemplate().batchUpdate(sql, data);
-		System.out.println(update);
+		//System.out.println(update);
 	}
 	/**
 	 * save relational data
