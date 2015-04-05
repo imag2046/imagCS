@@ -20,8 +20,6 @@ import com.lakeside.data.sqldb.MysqlDataSource;
 
 
 public class ImagSQLOpera {
-	
-	
 	// save into mysql with sql sentence & data;
 	public void saveIntoDatabase(String sql,Map[] data){
 		//resource;
@@ -29,7 +27,6 @@ public class ImagSQLOpera {
 		MysqlDataSource mysql = imagSQLdao.getDataSource();
 		
 		imagSQLdao.execute(sql, data);
-		
 	}
 	
 	
