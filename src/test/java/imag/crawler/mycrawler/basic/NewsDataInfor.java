@@ -25,6 +25,7 @@ public class NewsDataInfor {
 	
 	protected String newsDocument;
 	
+	
 	public long getId(){
 		return id;
 	}
