@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package imag.crawler.examples.imagecrawler;
+package imag.crawler.mycrawler.imagecrawler;
 
 import imag.crawler.crawler.CrawlConfig;
 import imag.crawler.crawler.CrawlController;

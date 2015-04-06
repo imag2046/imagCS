@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package imag.crawler.examples.statushandler;
+package imag.crawler.mycrawler.statushandler;
 
 import imag.crawler.crawler.CrawlConfig;
 import imag.crawler.crawler.CrawlController;

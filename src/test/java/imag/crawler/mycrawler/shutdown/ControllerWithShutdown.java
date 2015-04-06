@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package imag.crawler.examples.shutdown;
+package imag.crawler.mycrawler.shutdown;
 
 import imag.crawler.crawler.CrawlConfig;
 import imag.crawler.crawler.CrawlController;

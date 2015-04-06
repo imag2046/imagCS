@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package imag.crawler.examples.multiple;
+package imag.crawler.mycrawler.multiple;
 
 import imag.crawler.crawler.Page;
 import imag.crawler.crawler.WebCrawler;

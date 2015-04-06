@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package imag.crawler.examples.basic;
+package imag.crawler.mycrawler.basic;
 
 import imag.crawler.crawler.Page;
 import imag.crawler.crawler.WebCrawler;

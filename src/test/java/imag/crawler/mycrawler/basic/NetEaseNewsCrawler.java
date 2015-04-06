@@ -1,13 +1,10 @@
 
-package imag.crawler.examples.basic;
+package imag.crawler.mycrawler.basic;
 
 import imag.crawler.crawler.Page;
 import imag.crawler.parser.HtmlParseData;
 import imag.crawler.url.WebURL;
-import imag.databaseSql.ImagSQLDao;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.http.Header;
@@ -16,17 +13,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.lakeside.data.sqldb.MysqlDataSource;
-
 /**
  * @author xmwang
  * @ 2015
  */
-public class TencentNewsCrawler extends BasicCrawler{
 
-	@Override
+public class NetEaseNewsCrawler extends BasicCrawler{
+
+	  @Override
 	  public void visit(Page page) {
-		
 		    int docid = page.getWebURL().getDocid(); //这是程序定义的ID  
 		    String url = page.getWebURL().getURL(); //URL地址  
 		    String domain = page.getWebURL().getDomain(); //域名，如baidu.com  
@@ -47,7 +42,6 @@ public class TencentNewsCrawler extends BasicCrawler{
 		    String strContText = ""; 
 		    String strTitle = "";
 		    String strImgUrl = "";
-		    String strVideoUrl = "";
 		      
 		    if (page.getParseData() instanceof HtmlParseData) {  
 		        HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();  
@@ -61,32 +55,54 @@ public class TencentNewsCrawler extends BasicCrawler{
 		        System.out.println("strTitle: " + strTitle);  
 		        
 		        
-		        // qq news site;
-		        // parse the html infor to get the text of this title;
+		        // Override;
+		        // 163 site;
+		        // get the document text according to the title;
 		        Document doc = Jsoup.parse(html);
-		        // Element first = doc.select("div.bd").first();
-		        Element first = doc.getElementById("Cnt-Main-Article-QQ");
+		        Element first = doc.select("div#endText").first();
+		       
 				if(first==null){
-					strContText = "";
+					first = doc.select("div#article").first();
+					if(first == null){
+						first = doc.select("div#Content").first();
+						if(first == null){
+							strContText = "";
+						}else{
+							strContText = first.text();
+						}
+					}else{
+						strContText = first.text();
+						if(strContText==null){
+							strContText="";
+						}
+					}
 				}else{
 					strContText = first.text();
 					if(strContText==null){
 						strContText="";
 					}
 				}
-				// get img or video url;
+				// get img or video url of this article;
+				// 对于新华网来说,图片的url得到的是缺省的,需要把前面部分补齐;
+				// 比如url,http://www.gs.xinhuanet.com/2015-04/01/1114836692_14278597555641n.jpg; 最后一个'/'前面部分是缺省的;
+				// 网页url :http://www.gs.xinhuanet.com/2015-04/01/c_1114836692.htm;
+				// 要到成自动的分析是否需要添加 url 前缀;
 				// 获得一个以<class="img_wrapper"节点集合;
-				Elements imgLinks = first.getElementsByClass("img_wrapper");
-				StringBuffer stringBuffer = new StringBuffer();
-				int i = 0;
-				for (i = 0; i < imgLinks.size(); i++) {
-					//遍历集合获得第一个节点元素;
-					Element et = imgLinks.get(i).select("img[src]").first();
-					//获取元素的src属性;
-					if(et.attr("src") != null)
-						stringBuffer.append(et.attr("src") + ";");
+				String urlPrefix = url.substring(0, url.lastIndexOf('/')+1);
+				if(first != null){
+					Elements imgLinks = first.getElementsByTag("img");
+					StringBuffer stringBuffer = new StringBuffer();
+					int i = 0;
+					for (i = 0; i < imgLinks.size(); i++) {
+						//遍历集合获得第一个节点元素
+						Element et = imgLinks.get(i).select("img[src]").first();
+						//获取元素的href属性
+						if(et.attr("src") != null)
+							stringBuffer.append(  et.attr("src") + ";"); // img should add the url prefix;
+					}
+					strImgUrl = stringBuffer.toString();
 				}
-				strImgUrl = stringBuffer.toString();
+				
 		        
 				System.out.println("strContText: " + strContText);  
 				System.out.println("strImgUrl: " + strImgUrl);  
@@ -107,35 +123,11 @@ public class TencentNewsCrawler extends BasicCrawler{
 		    
 		    // write into file;
 		    // next to write into database;
-	        String file = "F:/迅雷下载/dataCrawl/亚投行/tencent亚投行/" + String.valueOf(docid) + ".txt";
+	        String file = "F:/迅雷下载/dataCrawl/亚投行/netEase亚投行/" + String.valueOf(docid) + ".txt";
 	       
 	        super.saveIntoFile(file,url,parentUrl,responseHeaders,strTitle,strContText);
 	        
-	        // save into sql;
-	        ImagSQLDao mysqlDao = new ImagSQLDao();
-	        MysqlDataSource mysql = mysqlDao.getDataSource();
-			String sql = "INSERT INTO `imagdata`.`newsdatatest` (`id`, `news_url`, `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :newsUrl, :parentUrl, :subDomain, :docId,:imgUrls,:videoUrls,:newsTitle,:newsDocument);";
-			Map[] maps = new Map[1];
-			for (int i = 0; i < 1; i++) {
-					HashMap<String, Object> paramMap = new HashMap();
-					paramMap.put("newsUrl", url);
-					paramMap.put("parentUrl", parentUrl==null?"NULL":parentUrl);
-					paramMap.put("subDomain", domain);
-					paramMap.put("docId", docid);
-					paramMap.put("imgUrls", strImgUrl.length()==0?"NULL":strImgUrl);
-					paramMap.put("videoUrls", strVideoUrl.length()==0?"NULL":strVideoUrl);
-					paramMap.put("newsTitle", strTitle);
-					paramMap.put("newsDocument", strContText);
-					maps[i] = paramMap;
-			}
-			mysqlDao.execute(sql, maps);
-	        
 		    System.out.println("============="); 
 	  }
-	
-	
-	
-	
-	
 	
 }

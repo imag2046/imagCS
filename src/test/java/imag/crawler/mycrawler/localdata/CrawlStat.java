@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package imag.crawler.examples.localdata;
+package imag.crawler.mycrawler.localdata;
 
 public class CrawlStat {
   private int totalProcessedPages;

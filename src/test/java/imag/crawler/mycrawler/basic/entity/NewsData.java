@@ -1,4 +1,4 @@
-package imag.crawler.examples.basic.entity;
+package imag.crawler.mycrawler.basic.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

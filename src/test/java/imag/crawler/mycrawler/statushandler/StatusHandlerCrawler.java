@@ -15,59 +15,59 @@
  * limitations under the License.
  */
 
-package imag.crawler.examples.shutdown;
+package imag.crawler.mycrawler.statushandler;
 
 import imag.crawler.crawler.Page;
 import imag.crawler.crawler.WebCrawler;
-import imag.crawler.parser.HtmlParseData;
 import imag.crawler.url.WebURL;
 
-import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Yasser Ganjisaffar
  */
-
-public class BasicCrawler extends WebCrawler {
-  private static final Logger logger = LoggerFactory.getLogger(BasicCrawler.class);
+public class StatusHandlerCrawler extends WebCrawler {
+  private static final Logger logger = LoggerFactory.getLogger(StatusHandlerCrawler.class);
 
   private static final Pattern FILTERS = Pattern.compile(
       ".*(\\.(css|js|bmp|gif|jpe?g|png|tiff?|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|pdf" +
       "|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
-  private static final String DOMAIN = "http://www.ics.uci.edu/";
-
+  /**
+   * You should implement this function to specify whether
+   * the given url should be crawled or not (based on your
+   * crawling logic).
+   */
   @Override
   public boolean shouldVisit(Page referringPage, WebURL url) {
     String href = url.getURL().toLowerCase();
-    return !FILTERS.matcher(href).matches() && href.startsWith(DOMAIN);
+    return !FILTERS.matcher(href).matches() && href.startsWith("http://www.ics.uci.edu/");
+  }
+
+  /**
+   * This function is called when a page is fetched and ready
+   * to be processed by your program.
+   */
+  @Override
+  public void visit(Page page) {
+    // Do nothing
   }
 
   @Override
-  public void visit(Page page) {
-    int docid = page.getWebURL().getDocid();
-    String url = page.getWebURL().getURL();
-    int parentDocid = page.getWebURL().getParentDocid();
+  protected void handlePageStatusCode(WebURL webUrl, int statusCode, String statusDescription) {
 
-    logger.debug("Docid: {}", docid);
-    logger.info("URL: {}", url);
-    logger.debug("Docid of parent page: {}", parentDocid);
+    if (statusCode != HttpStatus.SC_OK) {
 
-    if (page.getParseData() instanceof HtmlParseData) {
-      HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-      String text = htmlParseData.getText();
-      String html = htmlParseData.getHtml();
-      Set<WebURL> links = htmlParseData.getOutgoingUrls();
-
-      logger.debug("Text length: {}", text.length());
-      logger.debug("Html length: {}", html.length());
-      logger.debug("Number of outgoing links: {}", links.size());
+      if (statusCode == HttpStatus.SC_NOT_FOUND) {
+        logger.warn("Broken link: {}, this link was found in page: {}", webUrl.getURL(), webUrl.getParentUrl());
+      } else {
+        logger.warn("Non success status for link: {} status code: {}, description: ", webUrl.getURL(), statusCode,
+                    statusDescription);
+      }
     }
-
-    logger.debug("=============");
   }
 }
