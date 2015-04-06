@@ -1,47 +1,29 @@
-package imag.crawler.mycrawler.basic.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package imag.crawler.mycrawler.basic;
 
 /**
  * @author xmwang
  * @ 2015
  */
+public class NewsDataInfor {
 
-@Entity
-@Table(name="newsdatatest")
-public class NewsData {
-	@Id
-	@GeneratedValue
 	protected long id;
 	
-	@Column(name="news_url")
 	protected String newsUrl;
-	
-	@Column(name="parent_url")
+
 	protected String parentUrl;
 	
-	@Column(name="sub_domain")
 	protected String subDomain;
 	
-	@Column(name="docid")
 	protected long docId;
 	
-	@Column(name="img_urls")
 	protected String imgUrls;
 	
-	@Column(name="video_urls")
 	protected String videoUrls;
 	
-	@Column(name="title")
 	protected String newsTitle;
 	
-	@Column(name="document")
 	protected String newsDocument;
-	
 	
 	public long getId(){
 		return id;
