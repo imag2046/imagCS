@@ -3,10 +3,7 @@ package imag.crawler.mycrawler.basic;
 import imag.crawler.crawler.Page;
 import imag.crawler.parser.HtmlParseData;
 import imag.crawler.url.WebURL;
-import imag.databaseSql.ImagSQLDao;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.http.Header;
@@ -14,8 +11,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import com.lakeside.data.sqldb.MysqlDataSource;
 
 /**
  * @author xmwang @ 2015
