@@ -13,7 +13,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
- * @author xmwang @ 2015
+ * @author xmwang 
+ * @ 2015
  */
 public class TencentNewsCrawler extends BasicCrawler {
 
@@ -51,7 +52,6 @@ public class TencentNewsCrawler extends BasicCrawler {
 			strTitle = htmlParseData.getTitle();
 			System.out.println("strTitle: " + strTitle);
 
-			// qq news site;
 			// parse the html infor to get the text of this title;
 			Document doc = Jsoup.parse(html);
 			// Element first = doc.select("div.bd").first();
@@ -77,9 +77,25 @@ public class TencentNewsCrawler extends BasicCrawler {
 					stringBuffer.append(et.attr("src") + ";");
 			}
 			strImgUrl = stringBuffer.toString();
+			
+			// get video url;
+			Elements videoLinks = first.getElementsByClass("relTxt");
+			
+			StringBuffer vLinkBuffer = new StringBuffer();
+			int iVLink = 0;
+			for (i = 0; i < videoLinks.size(); i++) {
+				// 遍历集合获得第一个节点元素;
+				Element et = videoLinks.get(i).select("a[href]").first();
+				// 获取元素的src属性;
+				if (et.attr("href") != null)
+					vLinkBuffer.append(et.attr("href") + ";");
+			}
+			strVideoUrl = vLinkBuffer.toString();
 
 			System.out.println("strContText: " + strContText);
 			System.out.println("strImgUrl: " + strImgUrl);
+			System.out.println("strVideoUrl: " + strVideoUrl);
+
 
 		}
 
