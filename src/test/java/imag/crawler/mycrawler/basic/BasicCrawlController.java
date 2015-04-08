@@ -31,7 +31,7 @@ public class BasicCrawlController {
      * crawlStorageFolder is a folder where intermediate crawl data is
      * stored.
      */
-    String crawlStorageFolder = "F:/迅雷下载/dataCrawl";  
+    String crawlStorageFolder = "src/main/resources/dataCrawl";  
 
    
 
@@ -107,6 +107,10 @@ public class BasicCrawlController {
      * unlimited depth
      */
     config.setMaxDepthOfCrawling(0);
+    
+    // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
+    
+    
     
     for(int iPage=1;iPage<2;iPage++){
     	String urlSeed;
