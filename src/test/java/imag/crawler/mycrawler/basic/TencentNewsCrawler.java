@@ -40,6 +40,9 @@ public class TencentNewsCrawler extends BasicCrawler {
 		subDomain = page.getWebURL().getSubDomain(); // 子域名，如www,
 		parentUrl = page.getWebURL().getParentUrl(); // 父页面，即从哪个页面发现的该URL的
 		anchor = page.getWebURL().getAnchor(); // 锚，即HTML显示的信息，如<a href="***">锚</a>
+		
+		System.out.println("domain: " + domain);
+		System.out.println("subDomain: " + subDomain);
 
 		if (page.getParseData() instanceof HtmlParseData) {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
@@ -64,33 +67,45 @@ public class TencentNewsCrawler extends BasicCrawler {
 					strContText = "";
 				}
 			}
-			/********************* get img or video url *********************/
-			/********************* 获得一个以<class="img_wrapper"节点集合  *********************/
-			Elements imgLinks = first.getElementsByClass("img_wrapper");
-			StringBuffer stringBuffer = new StringBuffer();
-			int i = 0;
-			for (i = 0; i < imgLinks.size(); i++) {
-				// 遍历集合获得第一个节点元素;
-				Element et = imgLinks.get(i).select("img[src]").first();
-				// 获取元素的src属性;
-				if (et.attr("src") != null)
-					stringBuffer.append(et.attr("src") + ";");
-			}
-			strImgUrl = stringBuffer.toString();
 			
-			/********************* get video url *********************/
-			Elements videoLinks = first.getElementsByClass("relTxt");
-			
-			StringBuffer vLinkBuffer = new StringBuffer();
-			int iVLink = 0;
-			for (i = 0; i < videoLinks.size(); i++) {
-				// 遍历集合获得第一个节点元素;
-				Element et = videoLinks.get(i).select("a[href]").first();
-				// 获取元素的src属性;
-				if (et.attr("href") != null)
-					vLinkBuffer.append(et.attr("href") + ";");
+			if(first != null){
+				
+				/********************* get img or video url *********************/
+				/********************* 获得一个以<class="img_wrapper"节点集合  *********************/
+				Elements imgLinks = first.getElementsByClass("img_wrapper");
+				if(imgLinks == null){
+					strImgUrl = "";
+				}else{
+					StringBuffer stringBuffer = new StringBuffer();
+					int i = 0;
+					for (i = 0; i < imgLinks.size(); i++) {
+						// 遍历集合获得第一个节点元素;
+						Element et = imgLinks.get(i).select("img[src]").first();
+						// 获取元素的src属性;
+						if (et.attr("src") != null)
+							stringBuffer.append(et.attr("src") + ";");
+					}
+					strImgUrl = stringBuffer.toString();
+				}
+				
+				/********************* get video url *********************/
+				Elements videoLinks = first.getElementsByClass("relTxt");
+				if(videoLinks ==null){
+					strVideoUrl = "";
+				}else{
+					StringBuffer vLinkBuffer = new StringBuffer();
+					int iVLink = 0;
+					for (iVLink = 0; iVLink < videoLinks.size(); iVLink++) {
+						// 遍历集合获得第一个节点元素;
+						Element et = videoLinks.get(iVLink).select("a[href]").first();
+						// 获取元素的src属性;
+						if (et.attr("href") != null)
+							vLinkBuffer.append(et.attr("href") + ";");
+					}
+					strVideoUrl = vLinkBuffer.toString();
+				}
 			}
-			strVideoUrl = vLinkBuffer.toString();
+			
 			/*System.out.println("strContText: " + strContText);
 			System.out.println("strImgUrl: " + strImgUrl);
 			System.out.println("strVideoUrl: " + strVideoUrl);*/

@@ -21,9 +21,6 @@ public class BasicCrawlController {
  
   public static void main(String[] args) throws Exception {
     if (args.length != 2) {
-      logger.info("Needed parameters: ");
-      logger.info("\t rootFolder (it will contain intermediate crawl data)");
-      logger.info("\t numberOfCralwers (number of concurrent threads)");
      // return;
     }
 
@@ -32,8 +29,6 @@ public class BasicCrawlController {
      * stored.
      */
     String crawlStorageFolder = "src/main/resources/dataCrawl";  
-
-   
 
     CrawlConfig config = new CrawlConfig();
 
@@ -138,7 +133,7 @@ public class BasicCrawlController {
     	
     	
     	//test;
-    	//urlSeed = "http://news.sohu.com/20150330/n410537812.shtml";
+    	//urlSeed = "http://news.xinhuanet.com/comments/2015-04/07/c_1114881561.htm";
     	controller.addSeed(urlSeed);
     	//controller.addSeed("http://news.yodao.com/search?q=%E6%9D%8E%E5%85%89%E8%80%80&start=30&length=10&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com");  
     }
