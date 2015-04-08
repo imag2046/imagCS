@@ -33,15 +33,17 @@ public class ImagSQLDao {
 		} 
 		return namedParameters;
 	}
+	
 	/**
-	 * save  data
+	 * save   data into dbase;
 	 * 
 	 * @param data
 	 */
-	public void execute(String sql,Map[] data) {
+	public void saveIntoBase(String sql,Map[] data) {
 		int[] update = this.getJdbcTemplate().batchUpdate(sql, data);
 		//System.out.println(update);
 	}
+	
 	/**
 	 * query data
 	 * 
@@ -66,6 +68,7 @@ public class ImagSQLDao {
 		return this.getJdbcTemplate().queryForList(sql,paramMap,String.class);
 		
 	}
+	
 	/**
 	 * delete data by table id;
 	 * @param newsId
@@ -75,11 +78,8 @@ public class ImagSQLDao {
 		String sql = " DELETE FROM `newsdatatest` WHERE `id`=:id ";
 		Map<String,Object> paramMap = this.newParameters();
 		paramMap.put("id", newsId);
-		
 		int temp = this.getJdbcTemplate().update(sql, paramMap);
-	
 	}
-
 	
 	/**
 	 * function: Map<String,Object> = new HashMap<String,Object>();

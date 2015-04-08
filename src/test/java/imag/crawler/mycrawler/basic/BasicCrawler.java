@@ -240,7 +240,7 @@ public class BasicCrawler extends WebCrawler {
 				paramMap.put("newsDocument", newsDataInfor.getNewsDocument());
 				maps[i] = paramMap;
 			}
-			imagSQLDao.execute(sql, maps);
+			imagSQLDao.saveIntoBase(sql, maps);
 		}
 		
 	}
