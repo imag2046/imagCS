@@ -29,12 +29,6 @@ import com.lakeside.data.sqldb.MysqlDataSource;
  */
 public class BasicCrawler extends WebCrawler {
 	
-//	@Autowired
-//	public JDBCTemplateDao  dao;
-//	@Autowired
-//	public NewsDataInforsDao  newsInforsdao;
-
-
 	private static final Pattern IMAGE_EXTENSIONS = Pattern
 			.compile(".*\\.(bmp|gif|jpg|png)$");
 
@@ -213,23 +207,25 @@ public class BasicCrawler extends WebCrawler {
 	// mysql or hbase;
 
 	public void  savaIntoDatabase(NewsDataInfor newsDataInfor) {
-		ImagSQLDao mysqlDao = new ImagSQLDao();
-		MysqlDataSource mysql = mysqlDao.getDataSource();
+		ImagSQLDao imagSQLDao = new ImagSQLDao();
+		MysqlDataSource mysql = imagSQLDao.getDataSource();
 		/***************** 添加之前要先判断当前要保存的url是否在数据库中已经下载过,没有下载记录然后才保存  *****************/
 		//List<NewsDataInfors> newsInforsList = newsInforsdao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
 		//List<NewsDataInfor> newsInforsList = mysqlDao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
-		List<String> newsUrlsList = mysqlDao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
+		List<String> newsUrlsList = imagSQLDao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
 		int    nSize = newsUrlsList.size();
-		System.out.println("nSize: " + nSize);
 		/***************** 查找是否在数据库中已经存在相同url的news信息 *****************/
 		int    nFlag = 1;
 		for(int iIndex=0;iIndex<nSize;iIndex++){
 			String newsUrl = newsUrlsList.get(iIndex);
-			if(newsUrl.equals(newsDataInfor.getNewsUrl()))
+			if(newsUrl.equals(newsDataInfor.getNewsUrl())){
+				// there is already has a same url in the database;
 				nFlag = 2;
+				break ;
+			}
 		}
 		if(nFlag == 1){ 
-			// there is no the same news_url in the database;
+			// there is no  same 'news_url' in the database;
 			String sql = "INSERT INTO `imagdata`.`newsdatatest` (`id`, `news_url`, `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :newsUrl, :parentUrl, :subDomain, :docId,:imgUrls,:videoUrls,:newsTitle,:newsDocument);";
 			Map[] maps = new Map[1];
 			for (int i = 0; i < 1; i++) {
@@ -244,7 +240,7 @@ public class BasicCrawler extends WebCrawler {
 				paramMap.put("newsDocument", newsDataInfor.getNewsDocument());
 				maps[i] = paramMap;
 			}
-			mysqlDao.execute(sql, maps);
+			imagSQLDao.execute(sql, maps);
 		}
 		
 	}
