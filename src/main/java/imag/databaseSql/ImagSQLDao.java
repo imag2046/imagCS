@@ -34,7 +34,7 @@ public class ImagSQLDao {
 		return namedParameters;
 	}
 	/**
-	 * save relational data
+	 * save  data
 	 * 
 	 * @param data
 	 */
@@ -43,7 +43,7 @@ public class ImagSQLDao {
 		//System.out.println(update);
 	}
 	/**
-	 * get relational data
+	 * query data
 	 * 
 	 * @param data
 	 */
@@ -51,26 +51,40 @@ public class ImagSQLDao {
 		return this.getJdbcTemplate().queryForList(sql, paramMap);
 	}
 	
+	/**
+	 * qry the 'new_url' column with the condation of 'sub_Domain';
+	 * @param subDomain
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<String>  qryNewsBySubDomain(String subDomain){
 		// SELECT * FROM `newsdatatest` WHERE `sub_domain`="qq.com"
-		String sql = " SELECT `news_url` FROM `newsdatatest` WHERE `sub_domain` = \"qq.com\" ";
-		Map<String,Object> params = this.newParameters();
-		params.put("subDomain", subDomain);
+		String sql = " SELECT `news_url` FROM `newsdatatest` WHERE `sub_domain` =:subDomain ";
+		Map<String,Object> paramMap = this.newParameters();
+		paramMap.put("subDomain", subDomain);
 		
-		return this.getJdbcTemplate().queryForList(sql,params,String.class);
+		return this.getJdbcTemplate().queryForList(sql,paramMap,String.class);
 		
 	}
-//	public List<NewsDataInfor>  qryNewsBySubDomain(String subDomain){
-//		// SELECT * FROM `newsdatatest` WHERE `sub_domain`="qq.com"
-//		String sql = " SELECT count(*) FROM `newsdatatest` WHERE `sub_domain` =\"qq.com\" ";
-//		Map<String,Object> params = this.newParameters();
-//		params.put("subDomain", subDomain);
-//		
-//		return this.getJdbcTemplate().queryForList(sql,params,new NewsDataInforMapper());
-//		
-//	}
+	/**
+	 * delete data by table id;
+	 * @param newsId
+	 */
+	@SuppressWarnings("unchecked")
+	public void deleteById(long newsId){
+		String sql = " DELETE FROM `newsdatatest` WHERE `id`=:id ";
+		Map<String,Object> paramMap = this.newParameters();
+		paramMap.put("id", newsId);
+		
+		int temp = this.getJdbcTemplate().update(sql, paramMap);
 	
+	}
+
+	
+	/**
+	 * function: Map<String,Object> = new HashMap<String,Object>();
+	 * @return
+	 */
 	protected Map<String, Object> newParameters(){
 		return new HashMap<String,Object>();
 	}
