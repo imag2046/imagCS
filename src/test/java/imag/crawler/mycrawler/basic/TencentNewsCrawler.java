@@ -48,11 +48,11 @@ public class TencentNewsCrawler extends BasicCrawler {
 			Set<WebURL> links = htmlParseData.getOutgoingUrls(); // 在该页面发现的全部URL地址
 			strContent = text;
 
-			// get title;
+			/********************* get title *********************/
 			strTitle = htmlParseData.getTitle();
 			System.out.println("strTitle: " + strTitle);
 
-			// parse the html infor to get the text of this title;
+			/********************* parse the html infor to get the text of this title *********************/
 			Document doc = Jsoup.parse(html);
 			// Element first = doc.select("div.bd").first();
 			Element first = doc.getElementById("Cnt-Main-Article-QQ");
@@ -64,8 +64,8 @@ public class TencentNewsCrawler extends BasicCrawler {
 					strContText = "";
 				}
 			}
-			// get img or video url;
-			// 获得一个以<class="img_wrapper"节点集合;
+			/********************* get img or video url *********************/
+			/********************* 获得一个以<class="img_wrapper"节点集合  *********************/
 			Elements imgLinks = first.getElementsByClass("img_wrapper");
 			StringBuffer stringBuffer = new StringBuffer();
 			int i = 0;
@@ -78,7 +78,7 @@ public class TencentNewsCrawler extends BasicCrawler {
 			}
 			strImgUrl = stringBuffer.toString();
 			
-			// get video url;
+			/********************* get video url *********************/
 			Elements videoLinks = first.getElementsByClass("relTxt");
 			
 			StringBuffer vLinkBuffer = new StringBuffer();
@@ -91,12 +91,9 @@ public class TencentNewsCrawler extends BasicCrawler {
 					vLinkBuffer.append(et.attr("href") + ";");
 			}
 			strVideoUrl = vLinkBuffer.toString();
-
-			System.out.println("strContText: " + strContText);
+			/*System.out.println("strContText: " + strContText);
 			System.out.println("strImgUrl: " + strImgUrl);
-			System.out.println("strVideoUrl: " + strVideoUrl);
-
-
+			System.out.println("strVideoUrl: " + strVideoUrl);*/
 		}
 
 		Header[] responseHeaders = page.getFetchResponseHeaders(); // 页面服务器返回的HTML头信息
@@ -110,7 +107,6 @@ public class TencentNewsCrawler extends BasicCrawler {
 		/***************** write into file *****************/
 		// String file = "F:/迅雷下载/dataCrawl/亚投行/tencent亚投行/" + String.valueOf(docid) + ".txt";
 		// super.saveIntoFile(file,url,parentUrl,responseHeaders,strTitle,strContText);
-
 		/***************** Save Into NewsDataInfor Class *****************/
 		NewsDataInfor newsDataInfor = new NewsDataInfor();
 		newsDataInfor.setNewsUrl(url);

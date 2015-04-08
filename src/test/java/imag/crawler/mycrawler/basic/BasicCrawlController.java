@@ -102,7 +102,6 @@ public class BasicCrawlController {
      */
     //int numberOfCrawlers = Integer.parseInt(args[1]);
     int numberOfCrawlers = 1;
-    
     /*
      * You can set the maximum crawl depth here. The default value is -1 for
      * unlimited depth
