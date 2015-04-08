@@ -50,6 +50,7 @@ import uk.org.lidalia.slf4jext.LoggerFactory;
 public class WebCrawler implements Runnable {
 
   protected static final Logger logger = LoggerFactory.getLogger(WebCrawler.class);
+  
 
   /**
    * The id associated to the crawler thread running this instance

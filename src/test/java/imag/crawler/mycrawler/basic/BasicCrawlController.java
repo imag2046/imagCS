@@ -119,7 +119,7 @@ public class BasicCrawlController {
     	// qq.news;
     	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
-    	urlSeed = "http://news.qq.com/a/20150328/022584.htm";
+    	urlSeed = "http://news.qq.com/a/20150330/074363.htm";
     	// 新华网;
     	//urlSeed =  "http://info.search.news.cn/result.jspa?pno=" + String.valueOf(iPage) + "&rp=10&t1=0&btn=&t=1&n1=" + "亚投行" + "&np=1&ss=2";
     	// xinhuawang test;

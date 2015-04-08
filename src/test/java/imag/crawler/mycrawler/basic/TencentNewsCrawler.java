@@ -111,7 +111,7 @@ public class TencentNewsCrawler extends BasicCrawler {
 		// String file = "F:/迅雷下载/dataCrawl/亚投行/tencent亚投行/" + String.valueOf(docid) + ".txt";
 		// super.saveIntoFile(file,url,parentUrl,responseHeaders,strTitle,strContText);
 
-		/***************** save into NewsDataInfor Class *****************/
+		/***************** Save Into NewsDataInfor Class *****************/
 		NewsDataInfor newsDataInfor = new NewsDataInfor();
 		newsDataInfor.setNewsUrl(url);
 		newsDataInfor.setParentUrl(parentUrl == null ? "NULL" : parentUrl);
