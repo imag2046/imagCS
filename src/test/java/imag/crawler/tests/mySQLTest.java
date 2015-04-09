@@ -25,7 +25,7 @@ public class mySQLTest {
 		/***************** 添加之前要先判断当前要保存的url是否在数据库中已经下载过,没有下载记录然后才保存  *****************/
 		//List<NewsDataInfors> newsInforsList = newsInforsdao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
 		//List<NewsDataInfor> newsInforsList = mysqlDao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
-		imagSQLDao.deleteById(1);
+		//imagSQLDao.deleteById(1);
 	}
 
 }

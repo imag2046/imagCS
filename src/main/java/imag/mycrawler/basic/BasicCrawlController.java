@@ -1,5 +1,5 @@
 
-package imag.crawler.mycrawler.basic;
+package imag.mycrawler.basic;
 
 import imag.crawler.crawler.CrawlConfig;
 import imag.crawler.crawler.CrawlController;
