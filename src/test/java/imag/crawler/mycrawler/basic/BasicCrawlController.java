@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author wxm516
- *
+ * @description This file is used for debug, not for maven package to a execute jar file;
+ *              The same file in src/main/java is used for maven package to a execute jar file;
  */
 public class BasicCrawlController {
   private static final Logger logger = LoggerFactory.getLogger(BasicCrawlController.class);
