@@ -5,7 +5,7 @@ import imag.crawler.crawler.Page;
 import imag.crawler.crawler.WebCrawler;
 import imag.crawler.parser.HtmlParseData;
 import imag.crawler.url.WebURL;
-import imag.databaseSql.ImagSQLDao;
+import imag.databaseSql.dao.ImagSQLDao;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -212,7 +212,7 @@ public class BasicCrawler extends WebCrawler {
 		/***************** 添加之前要先判断当前要保存的url是否在数据库中已经下载过,没有下载记录然后才保存  *****************/
 		//List<NewsDataInfors> newsInforsList = newsInforsdao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
 		//List<NewsDataInfor> newsInforsList = mysqlDao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
-		List<String> newsUrlsList = imagSQLDao.qryNewsBySubDomain(newsDataInfor.getSubDomain());
+		List<String> newsUrlsList = imagSQLDao.qryNewsUrlBySubDomain(newsDataInfor.getSubDomain());
 		int    nSize = newsUrlsList.size();
 		/***************** 查找是否在数据库中已经存在相同url的news信息 *****************/
 		int    nFlag = 1;

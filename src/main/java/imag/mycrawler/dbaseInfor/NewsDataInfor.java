@@ -1,5 +1,5 @@
 
-package imag.mycrawler.basic;
+package imag.mycrawler.dbaseInfor;
 
 /**
  * @author xmwang

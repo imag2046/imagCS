@@ -1,5 +1,5 @@
 
-package imag.databaseSql;
+package imag.databaseSql.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +59,7 @@ public class ImagSQLDao {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<String>  qryNewsBySubDomain(String subDomain){
+	public List<String>  qryNewsUrlBySubDomain(String subDomain){
 		// SELECT * FROM `newsdatatest` WHERE `sub_domain`="qq.com"
 		String sql = " SELECT `news_url` FROM `newsdatatest` WHERE `sub_domain` =:subDomain ";
 		Map<String,Object> paramMap = this.newParameters();

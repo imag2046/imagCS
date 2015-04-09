@@ -4,9 +4,7 @@
  */
 package imag.crawler.tests;
 
-import imag.databaseSql.ImagSQLDao;
-
-import java.util.List;
+import imag.databaseSql.dao.ImagSQLDao;
 
 import org.junit.Test;
 

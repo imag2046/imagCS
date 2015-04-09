@@ -20,9 +20,15 @@ public class BasicCrawlController {
   
  
   public static void main(String[] args) throws Exception {
-    if (args.length != 2) {
-     // return;
-    }
+	  if (args.length != 2) {
+	    	logger.info("Needed parameters: ");
+	    	logger.info("\t the query keyword used to crawl ");
+	    	logger.info("\t the domain of news site (such as qq.com, sina.com, ... )");
+	    	return;
+	    }
+	    
+	    System.out.println("query keyword : " + args[0]);
+	    System.out.println("news domain : " + args[1]);
 
     /*
      * crawlStorageFolder is a folder where intermediate crawl data is
@@ -96,18 +102,18 @@ public class BasicCrawlController {
      * be initiated for crawling.
      */
     //int numberOfCrawlers = Integer.parseInt(args[1]);
-    int numberOfCrawlers = 1;
+    int numberOfCrawlers = 5;
     /*
      * You can set the maximum crawl depth here. The default value is -1 for
      * unlimited depth
      */
-    config.setMaxDepthOfCrawling(0);
+    config.setMaxDepthOfCrawling(1);
     
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
     
     
     
-    for(int iPage=1;iPage<2;iPage++){
+    for(int iPage=1;iPage<5;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
@@ -115,7 +121,7 @@ public class BasicCrawlController {
     	// http://news.sogou.com/news?mode=1&manual=true&query=site:sohu.com +亚投行&sort=0&page=3;
     	//urlSeed =  "http://news.sogou.com/news?mode=1&manual=true&query=" + "亚投行" + "&sort=0&page=" + String.valueOf(iPage);
     	// qq.news;
-    	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
+    	urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
     	//urlSeed = "http://view.news.qq.com/original/intouchtoday/n3115.html";
     	// 新华网;
@@ -133,7 +139,7 @@ public class BasicCrawlController {
     	
     	
     	//test;
-    	urlSeed = "http://news.xinhuanet.com/comments/2015-04/07/c_1114881561.htm";
+    	//urlSeed = "http://news.xinhuanet.com/comments/2015-04/07/c_1114881561.htm";
     	controller.addSeed(urlSeed);
     	//controller.addSeed("http://news.yodao.com/search?q=%E6%9D%8E%E5%85%89%E8%80%80&start=30&length=10&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com");  
     }

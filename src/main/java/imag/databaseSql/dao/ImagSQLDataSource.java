@@ -1,5 +1,5 @@
 
-package imag.databaseSql;
+package imag.databaseSql.dao;
 
 import com.lakeside.data.sqldb.MysqlDataSource;
 

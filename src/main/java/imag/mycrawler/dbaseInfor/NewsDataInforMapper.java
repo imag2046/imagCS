@@ -2,7 +2,7 @@
  * @author xmwang
  * @ 2015
  */
-package imag.mycrawler.basic;
+package imag.mycrawler.dbaseInfor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
