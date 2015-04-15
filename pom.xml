@@ -348,7 +348,7 @@
 			<groupId>com.lakeside</groupId>
 			<artifactId>lakeside-core</artifactId>
 			<version>1.0.1</version>
-	</dependency>
+	</dependency> 
 	<dependency>
 			<groupId>com.lakeside</groupId>
 			<artifactId>lakeside-data-sql</artifactId>
