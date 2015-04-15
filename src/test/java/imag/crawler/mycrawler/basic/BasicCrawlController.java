@@ -113,11 +113,7 @@ public class BasicCrawlController {
     
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
     
-    
-    
-    
-    
-    for(int iPage=1;iPage<5;iPage++){
+    for(int iPage=1;iPage<2;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
@@ -125,9 +121,9 @@ public class BasicCrawlController {
     	// http://news.sogou.com/news?mode=1&manual=true&query=site:sohu.com +亚投行&sort=0&page=3;
     	//urlSeed =  "http://news.sogou.com/news?mode=1&manual=true&query=" + "亚投行" + "&sort=0&page=" + String.valueOf(iPage);
     	// qq.news;
-    	urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
+    	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
-    	//urlSeed = "http://view.news.qq.com/original/intouchtoday/n3115.html";
+    	urlSeed = "http://view.news.qq.com/original/intouchtoday/n3115.html";
     	// 新华网;
     	//urlSeed =  "http://info.search.news.cn/result.jspa?pno=" + String.valueOf(iPage) + "&rp=10&t1=0&btn=&t=1&n1=" + "亚投行" + "&np=1&ss=2";
     	// xinhuawang test;

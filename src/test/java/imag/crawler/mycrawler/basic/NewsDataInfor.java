@@ -10,6 +10,8 @@ public class NewsDataInfor {
 	protected long id;
 	
 	protected String newsUrl;
+	
+	protected String pubTime;
 
 	protected String parentUrl;
 	
@@ -38,6 +40,13 @@ public class NewsDataInfor {
 	}
 	public void setNewsUrl(String newsUrl){
 		this.newsUrl = newsUrl;
+	}
+	
+	public String getPubTime(){
+		return pubTime;
+	}
+	public void setPubTime(String pubTime){
+		this.pubTime = pubTime;
 	}
 	
 	public String getParentUrl(){
