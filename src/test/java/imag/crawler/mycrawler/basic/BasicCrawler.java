@@ -226,11 +226,12 @@ public class BasicCrawler extends WebCrawler {
 		}
 		if(nFlag == 1){ 
 			// there is no  same 'news_url' in the database;
-			String sql = "INSERT INTO `imagdata`.`newsdatatest` (`id`, `news_url`, `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :newsUrl, :parentUrl, :subDomain, :docId,:imgUrls,:videoUrls,:newsTitle,:newsDocument);";
+			String sql = "INSERT INTO `imagdata`.`newsdatatest` (`id`, `news_url`, `pub_time`,  `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :newsUrl, :pubTime, :parentUrl, :subDomain, :docId,:imgUrls,:videoUrls,:newsTitle,:newsDocument);";
 			Map[] maps = new Map[1];
 			for (int i = 0; i < 1; i++) {
 				HashMap<String, Object> paramMap = new HashMap();
 				paramMap.put("newsUrl", newsDataInfor.getNewsUrl());
+				paramMap.put("pubTime", newsDataInfor.getPubTime());
 				paramMap.put("parentUrl", newsDataInfor.getParentUrl());
 				paramMap.put("subDomain", newsDataInfor.getSubDomain());
 				paramMap.put("docId", newsDataInfor.getDocId());

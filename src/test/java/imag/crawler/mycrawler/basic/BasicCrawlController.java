@@ -107,6 +107,7 @@ public class BasicCrawlController {
    // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=南京理工大学");  // 中科院;
     
     
+    /*******************下面的两个参数是需要修改的1-numberOfCrawlers 2-setMaxDepthOfCrawling********************************************/
     /*
      * numberOfCrawlers shows the number of concurrent threads that should
      * be initiated for crawling.
@@ -125,10 +126,6 @@ public class BasicCrawlController {
 	
 	List<String> newsUrlsList = imagSQLDao.qryNewsUrlBySubDomain("qq.com");
 	System.out.println("newsUrlsList : " + newsUrlsList.size());
-	
-	
-	
-	
 	
     
     for(int iPage=1;iPage<1;iPage++){

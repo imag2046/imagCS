@@ -7,3 +7,4 @@ javadocs/*
 .project
 /target/
 /target/
+/logs
