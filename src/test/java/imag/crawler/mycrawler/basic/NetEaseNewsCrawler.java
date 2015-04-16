@@ -19,29 +19,33 @@ import org.jsoup.select.Elements;
  */
 
 public class NetEaseNewsCrawler extends BasicCrawler{
-
 	  @Override
 	  public void visit(Page page) {
-		    int docid = page.getWebURL().getDocid(); //这是程序定义的ID  
-		    String url = page.getWebURL().getURL(); //URL地址  
-		    String domain = page.getWebURL().getDomain(); //域名，如baidu.com  
-		    String path = page.getWebURL().getPath(); //路径，不包含URL参数  
-		    String subDomain = page.getWebURL().getSubDomain(); //子域名，如www,  
-		    String parentUrl = page.getWebURL().getParentUrl(); //父页面，即从哪个页面发现的该URL的  
-		    String anchor = page.getWebURL().getAnchor(); //锚，即HTML显示的信息，如<a href="***">锚</a>  
 		  
-		    System.out.println("Docid: " + docid);  
-		    System.out.println("URL: " + url);  
-		    System.out.println("Domain: '" + domain + "'");  
-		    System.out.println("Sub-domain: '" + subDomain + "'");  
-		    System.out.println("Path: '" + path + "'");  
-		    System.out.println("Parent page: " + parentUrl);  
-		    System.out.println("Anchor text: " + anchor);  
-		    
-		    String strContent = "";
-		    String strContText = ""; 
-		    String strTitle = "";
-		    String strImgUrl = "";
+		  	int    docid;
+			String url;
+			String domain;
+			String path;
+			String subDomain;
+			String parentUrl;
+			String anchor;
+			String strContent = "";
+			String strContText = "";
+			String strTitle = "";
+			String strImgUrl = "";
+			String strVideoUrl = "";
+			String strPubTime = ""; // time format: "2015-04-15 00:10"
+		  
+			docid = page.getWebURL().getDocid(); // 这是程序定义的ID
+			url = page.getWebURL().getURL(); // URL地址
+			domain = page.getWebURL().getDomain(); // 域名，如baidu.com
+			path = page.getWebURL().getPath(); // 路径，不包含URL参数
+			subDomain = page.getWebURL().getSubDomain(); // 子域名，如www,
+			parentUrl = page.getWebURL().getParentUrl(); // 父页面，即从哪个页面发现的该URL的
+			anchor = page.getWebURL().getAnchor(); // 锚，即HTML显示的信息，如<a href="***">锚</a>
+			
+			System.out.println("domain: " + domain);
+			System.out.println("subDomain: " + subDomain);
 		      
 		    if (page.getParseData() instanceof HtmlParseData) {  
 		        HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();  
@@ -54,13 +58,17 @@ public class NetEaseNewsCrawler extends BasicCrawler{
 		        strTitle = htmlParseData.getTitle();
 		        System.out.println("strTitle: " + strTitle);  
 		        
-		        
 		        // Override;
 		        // 163 site;
 		        // get the document text according to the title;
 		        Document doc = Jsoup.parse(html);
+		        /**********************     get the public time                        **********************/
+				//Elements timeLabel = doc.select("#"); // 没有网易自己特定的新闻网页,基本上都是从别的网站上来的链接;
+				//strPubTime = timeLabel.get(0).text();
+				//System.out.println("strPubTime: " + strPubTime);
+		        
+				/**********************  get the document text  **********************/
 		        Element first = doc.select("div#endText").first();
-		       
 				if(first==null){
 					first = doc.select("div#article").first();
 					if(first == null){
@@ -106,11 +114,6 @@ public class NetEaseNewsCrawler extends BasicCrawler{
 		        
 				System.out.println("strContText: " + strContText);  
 				System.out.println("strImgUrl: " + strImgUrl);  
-		      
-		        //System.out.println("Text length: " + text.length());  
-		        //System.out.println("Text : " + text);  
-		        //System.out.println("Html length: " + html.length());  
-		        //System.out.println("Number of outgoing links: " + links.size());  
 		    }  
 		  
 		    Header[] responseHeaders = page.getFetchResponseHeaders(); //页面服务器返回的HTML头信息  
@@ -123,9 +126,22 @@ public class NetEaseNewsCrawler extends BasicCrawler{
 		    
 		    // write into file;
 		    // next to write into database;
-	        String file = "F:/迅雷下载/dataCrawl/亚投行/netEase亚投行/" + String.valueOf(docid) + ".txt";
-	       
-	        super.saveIntoFile(file,url,parentUrl,responseHeaders,strTitle,strContText);
+		    /***************** write into file *****************/
+			// String file = "F:/迅雷下载/dataCrawl/亚投行/tencent亚投行/" + String.valueOf(docid) + ".txt";
+			// super.saveIntoFile(file,url,parentUrl,responseHeaders,strTitle,strContText);
+			/***************** Save Into NewsDataInfor Class *****************/
+			NewsDataInfor newsDataInfor = new NewsDataInfor();
+			newsDataInfor.setNewsUrl(url);
+			newsDataInfor.setPubTime(strPubTime == null ? "NULL" : strPubTime);
+			newsDataInfor.setParentUrl(parentUrl == null ? "NULL" : parentUrl);
+			newsDataInfor.setSubDomain(domain);
+			newsDataInfor.setDocId(docid);
+			newsDataInfor.setImgUrls(strImgUrl.length() == 0 ? "NULL" : strImgUrl);
+			newsDataInfor.setVideoUrls(strVideoUrl.length() == 0 ? "NULL" : strVideoUrl);
+			newsDataInfor.setNewsTitle(strTitle);
+			newsDataInfor.setNewsDocument(strContText);
+			/***************** save into mySQL database *****************/
+			super.savaIntoDatabase(newsDataInfor);
 	        
 		    System.out.println("============="); 
 	  }

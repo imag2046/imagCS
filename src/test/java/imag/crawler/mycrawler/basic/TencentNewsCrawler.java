@@ -61,7 +61,10 @@ public class TencentNewsCrawler extends BasicCrawler {
 			
 			/**********************     get the publicl time                        **********************/
 			Elements timeLabel = doc.select("[class=article-time]");
-			strPubTime = timeLabel.get(0).text();
+			if(timeLabel !=null){
+				strPubTime = timeLabel.get(0).text();
+			}
+			
 			System.out.println("strPubTime: " + strPubTime);
 			
 			// Element first = doc.select("div.bd").first();

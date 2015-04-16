@@ -119,20 +119,26 @@ public class BasicCrawlController {
     config.setMaxDepthOfCrawling(0);
     
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
-    ImagSQLDao imagSQLDao = new ImagSQLDao();
-	MysqlDataSource mysql = imagSQLDao.getDataSource();
+    //ImagSQLDao imagSQLDao = new ImagSQLDao();
+	//MysqlDataSource mysql = imagSQLDao.getDataSource();
 	
-	List<String> newsUrlsList = imagSQLDao.qryNewsUrlBySubDomain("qq.com");
-	System.out.println("newsUrlsList : " + newsUrlsList.size());
-	
+	//List<String> newsUrlsList = imagSQLDao.qryNewsUrlBySubDomain("qq.com");
+	//System.out.println("newsUrlsList : " + newsUrlsList.size());
     
     for(int iPage=1;iPage<2;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
+    	// 163;
+    	//urlSeed = "http://news.china.com.cn/rollnews/news/live/2015-04/16/content_32314835.htm";
+    	
+    	
     	// sohu;
     	// http://news.sogou.com/news?mode=1&manual=true&query=site:sohu.com +亚投行&sort=0&page=3;
     	//urlSeed =  "http://news.sogou.com/news?mode=1&manual=true&query=" + "亚投行" + "&sort=0&page=" + String.valueOf(iPage);
+    	// sohu test;
+    	urlSeed = "http://business.sohu.com/20150416/n411380356.shtml";
+    	
     	// qq.news;
     	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
@@ -140,7 +146,7 @@ public class BasicCrawlController {
     	// 新华网;
     	//urlSeed =  "http://info.search.news.cn/result.jspa?pno=" + String.valueOf(iPage) + "&rp=10&t1=0&btn=&t=1&n1=" + "亚投行" + "&np=1&ss=2";
     	// xinhuawang test;
-    	urlSeed = "http://ent.163.com/15/0401/16/AM4KQRKO00031H2L.html";
+    	//urlSeed = "http://ent.163.com/15/0401/16/AM4KQRKO00031H2L.html";
     	// sina;
     	//urlSeed =  "http://search.sina.com.cn/?c=news&q=" + "亚投行" + "&range=all&num=20&col=1_3&source=&from=&country=&size=&time=&a=&page=" + String.valueOf(iPage) ;
     	// sina test;
@@ -166,9 +172,13 @@ public class BasicCrawlController {
      * will reach the line after this only when crawling is finished.
      */
     //controller.start(BasicCrawler.class, numberOfCrawlers);
-    controller.start(TencentNewsCrawler.class, numberOfCrawlers);
     
+    //controller.start(TencentNewsCrawler.class, numberOfCrawlers);
+    //controller.start(NetEaseNewsCrawler.class, numberOfCrawlers);
+    controller.start(SohuNewsCrawler.class, numberOfCrawlers);
     controller.shutdown();
+    
+    
    
   }
 }
