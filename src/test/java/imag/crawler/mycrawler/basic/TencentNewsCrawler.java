@@ -57,6 +57,8 @@ public class TencentNewsCrawler extends BasicCrawler {
 
 			/********************* parse the html infor to get the text of this title *********************/
 			Document doc = Jsoup.parse(html);
+			
+			
 			// Element first = doc.select("div.bd").first();
 			Element first = doc.getElementById("Cnt-Main-Article-QQ");
 			if (first == null) {
