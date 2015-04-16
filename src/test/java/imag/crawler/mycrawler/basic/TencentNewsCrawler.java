@@ -59,6 +59,10 @@ public class TencentNewsCrawler extends BasicCrawler {
 			/********************* parse the html infor to get the text of this title *********************/
 			Document doc = Jsoup.parse(html);
 			
+			/**********************     get the publicl time                        **********************/
+			Elements timeLabel = doc.select("[class=article-time]");
+			strPubTime = timeLabel.get(0).text();
+			System.out.println("strPubTime: " + strPubTime);
 			
 			// Element first = doc.select("div.bd").first();
 			Element first = doc.getElementById("Cnt-Main-Article-QQ");

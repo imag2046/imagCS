@@ -56,8 +56,6 @@ public class BasicCrawlController {
      */
     config.setPolitenessDelay(1000);
 
-    
-
     /*
      * You can set the maximum number of pages to crawl. The default value
      * is -1 for unlimited number of pages
@@ -128,7 +126,7 @@ public class BasicCrawlController {
 	System.out.println("newsUrlsList : " + newsUrlsList.size());
 	
     
-    for(int iPage=1;iPage<1;iPage++){
+    for(int iPage=1;iPage<2;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
@@ -138,11 +136,11 @@ public class BasicCrawlController {
     	// qq.news;
     	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
-    	urlSeed = "http://view.news.qq.com/original/intouchtoday/n3115.html";
+    	//urlSeed = "http://news.qq.com/a/20150406/000453.htm";
     	// 新华网;
     	//urlSeed =  "http://info.search.news.cn/result.jspa?pno=" + String.valueOf(iPage) + "&rp=10&t1=0&btn=&t=1&n1=" + "亚投行" + "&np=1&ss=2";
     	// xinhuawang test;
-    	//urlSeed = "http://ent.163.com/15/0401/16/AM4KQRKO00031H2L.html";
+    	urlSeed = "http://ent.163.com/15/0401/16/AM4KQRKO00031H2L.html";
     	// sina;
     	//urlSeed =  "http://search.sina.com.cn/?c=news&q=" + "亚投行" + "&range=all&num=20&col=1_3&source=&from=&country=&size=&time=&a=&page=" + String.valueOf(iPage) ;
     	// sina test;
