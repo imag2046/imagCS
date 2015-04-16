@@ -20,15 +20,18 @@ public class BasicCrawlController {
   
  
   public static void main(String[] args) throws Exception {
-	  if (args.length != 2) {
+	  if (args.length != 3) {
 	    	logger.info("Needed parameters: ");
 	    	logger.info("\t the query keyword used to crawl ");
-	    	logger.info("\t the domain of news site (such as qq.com, sina.com, ... )");
+	    	logger.info("\t the start time to crawl ");
+	    	logger.info("\t the end   time to crawl ");
 	    	return;
 	    }
 	    
 	    System.out.println("query keyword : " + args[0]);
-	    System.out.println("news domain : " + args[1]);
+	    System.out.println("start time : " + args[1]);
+	    System.out.println("end   time : " + args[2]);
+	    System.out.println("news domain : " + "all sites in dbase. ");
 
     /*
      * crawlStorageFolder is a folder where intermediate crawl data is
@@ -45,21 +48,16 @@ public class BasicCrawlController {
      * second (1000 milliseconds between requests).
      */
     config.setPolitenessDelay(1000);
-
-    
-
     /*
      * You can set the maximum number of pages to crawl. The default value
      * is -1 for unlimited number of pages
      */
     config.setMaxPagesToFetch(-1);
-
     /**
      * Do you want crawler4j to crawl also binary data ?
      * example: the contents of pdf, or the metadata of images etc
      */
     config.setIncludeBinaryContentInCrawling(false);
-
     /*
      * Do you need to set a proxy? If so, you can use:
      * config.setProxyHost("proxyserver.example.com");
@@ -68,7 +66,6 @@ public class BasicCrawlController {
      * If your proxy also needs authentication:
      * config.setProxyUsername(username); config.getProxyPassword(password);
      */
-
     /*
      * This config parameter can be used to set your crawl to be resumable
      * (meaning that you can resume the crawl from a previously
@@ -91,18 +88,12 @@ public class BasicCrawlController {
      * URLs that are fetched and then the crawler starts following links
      * which are found in these pages
      */
-   // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=%E5%8D%97%E4%BA%AC");  // 南京;
-   // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=反腐");  // 中科院;
-   // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=环保");  // 中科院;
-   // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=南京理工大学");  // 中科院;
-    
     
     /*
      * numberOfCrawlers shows the number of concurrent threads that should
      * be initiated for crawling.
      */
-    //int numberOfCrawlers = Integer.parseInt(args[1]);
-    int numberOfCrawlers = 5;
+    int numberOfCrawlers = 1;
     /*
      * You can set the maximum crawl depth here. The default value is -1 for
      * unlimited depth
@@ -110,10 +101,12 @@ public class BasicCrawlController {
     config.setMaxDepthOfCrawling(1);
     
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
+    int nStartPage = Integer.valueOf(args[1]);
+    int nEndPage = Integer.valueOf(args[2]);
     
     
     
-    for(int iPage=1;iPage<5;iPage++){
+    for(int iPage=nStartPage;iPage<nEndPage;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";

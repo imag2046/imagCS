@@ -45,13 +45,18 @@ public class ImagSQLDao {
 	}
 	
 	/**
-	 * query data
+	 * query row data
 	 * 
 	 * @param data
 	 */
 	public List<Map<String, Object>> queryForList(String sql,Map<String, ?> paramMap) {
 		return this.getJdbcTemplate().queryForList(sql, paramMap);
 	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * qry the 'new_url' column with the condation of 'sub_Domain';
@@ -66,6 +71,27 @@ public class ImagSQLDao {
 		paramMap.put("subDomain", subDomain);
 		
 		return this.getJdbcTemplate().queryForList(sql,paramMap,String.class);
+		
+	}
+	
+	/**
+	 * 以conColName作为查询条件,返回qryColName列的值的lists;
+	 * @param qryColName
+	 * @param conColName
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<String>  qryColumnByColumn(String qryColName,String conColName,String conColValue,String tableName){
+		// SELECT `news_url` FROM `newsdatatest` WHERE `sub_domain` ="qq.com"
+		StringBuffer sbSql = new StringBuffer();
+		Map<String,Object> paramMap = this.newParameters();
+		sbSql.append(" select  ").append(qryColName).append("   from   ");
+		sbSql.append(tableName).append(" where ");
+		sbSql.append(conColName).append(" =:").append(conColName);
+		
+		paramMap.put(conColName, conColValue);
+		
+		return this.getJdbcTemplate().queryForList(sbSql.toString(),paramMap,String.class);
 		
 	}
 	

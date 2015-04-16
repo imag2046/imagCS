@@ -1,14 +1,19 @@
 
 package imag.crawler.mycrawler.basic;
 
+import java.util.List;
+
 import imag.crawler.crawler.CrawlConfig;
 import imag.crawler.crawler.CrawlController;
 import imag.crawler.fetcher.PageFetcher;
 import imag.crawler.robotstxt.RobotstxtConfig;
 import imag.crawler.robotstxt.RobotstxtServer;
+import imag.databaseSql.dao.ImagSQLDao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.lakeside.data.sqldb.MysqlDataSource;
 
 
 /**
@@ -21,17 +26,20 @@ public class BasicCrawlController {
   
  
   public static void main(String[] args) throws Exception {
-    if (args.length != 2) {
-    	logger.info("Needed parameters: ");
-    	logger.info("\t the query keyword used to crawl ");
-    	logger.info("\t the domain of news site (such as qq.com, sina.com, ... )");
-    	//return;
-    }
+	  if (args.length != 3) {
+	    	logger.info("Needed parameters: ");
+	    	logger.info("\t the query keyword used to crawl ");
+	    	logger.info("\t the start page to crawl ");
+	    	logger.info("\t the end   page to crawl ");
+	    	//return;
+	    }
+	    
+	    //System.out.println("query keyword : " + args[0]);
+	    //System.out.println("start page : " + args[1]);
+	    //System.out.println("end   page : " + args[2]);
+	    System.out.println("news domain : " + "all sites in dbase. ");
     
-    //System.out.println("query keyword : " + args[0]);
-    //System.out.println("news domain : " + args[1]);
-    
-
+	    
     /*
      * crawlStorageFolder is a folder where intermediate crawl data is
      * stored.
@@ -109,15 +117,21 @@ public class BasicCrawlController {
      * You can set the maximum crawl depth here. The default value is -1 for
      * unlimited depth
      */
-    config.setMaxDepthOfCrawling(1);
+    config.setMaxDepthOfCrawling(0);
     
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
+    ImagSQLDao imagSQLDao = new ImagSQLDao();
+	MysqlDataSource mysql = imagSQLDao.getDataSource();
+	
+	List<String> newsUrlsList = imagSQLDao.qryNewsUrlBySubDomain("qq.com");
+	System.out.println("newsUrlsList : " + newsUrlsList.size());
+	
+	
+	
+	
+	
     
-    
-    
-    
-    
-    for(int iPage=1;iPage<5;iPage++){
+    for(int iPage=1;iPage<1;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
@@ -125,9 +139,9 @@ public class BasicCrawlController {
     	// http://news.sogou.com/news?mode=1&manual=true&query=site:sohu.com +亚投行&sort=0&page=3;
     	//urlSeed =  "http://news.sogou.com/news?mode=1&manual=true&query=" + "亚投行" + "&sort=0&page=" + String.valueOf(iPage);
     	// qq.news;
-    	urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
+    	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
-    	//urlSeed = "http://view.news.qq.com/original/intouchtoday/n3115.html";
+    	urlSeed = "http://view.news.qq.com/original/intouchtoday/n3115.html";
     	// 新华网;
     	//urlSeed =  "http://info.search.news.cn/result.jspa?pno=" + String.valueOf(iPage) + "&rp=10&t1=0&btn=&t=1&n1=" + "亚投行" + "&np=1&ss=2";
     	// xinhuawang test;
