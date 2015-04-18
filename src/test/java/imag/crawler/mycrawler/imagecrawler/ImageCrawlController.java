@@ -22,9 +22,17 @@ import imag.crawler.crawler.CrawlController;
 import imag.crawler.fetcher.PageFetcher;
 import imag.crawler.robotstxt.RobotstxtConfig;
 import imag.crawler.robotstxt.RobotstxtServer;
+import imag.databaseSql.dao.ImagSQLDao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.lakeside.data.sqldb.MysqlDataSource;
 
 
 public class ImageCrawlController {
@@ -36,13 +44,17 @@ public class ImageCrawlController {
       logger.info("\t rootFolder (it will contain intermediate crawl data)");
       logger.info("\t numberOfCralwers (number of concurrent threads)");
       logger.info("\t storageFolder (a folder for storing downloaded images)");
-      return;
+      //return;
     }
 
-    String rootFolder = args[0];
-    int numberOfCrawlers = Integer.parseInt(args[1]);
-    String storageFolder = args[2];
+//    String rootFolder = args[0];
+//    int numberOfCrawlers = Integer.parseInt(args[1]);
+//    String storageFolder = args[2];
 
+    String rootFolder = "src/main/resources/dataCrawl";
+    int numberOfCrawlers = 1;
+    String storageFolder = "src/main/resources/dataCrawl/imagesCrawl";
+    
     CrawlConfig config = new CrawlConfig();
 
     config.setCrawlStorageFolder(rootFolder);
@@ -53,17 +65,51 @@ public class ImageCrawlController {
      */
     config.setIncludeBinaryContentInCrawling(true);
 
-    String[] crawlDomains = {"http://uci.edu/"};
-
+    //String[] crawlDomains = {"http://uci.edu/"};
+    //String[] crawlDomains = {"http://img1.gtimg.com/news/pics/hv1/0/234/1813/117949995.jpg"};  // imgs url;
+    //String[]   crawlImgUrls = new String[]{} ;
+    /***************************** 修改成从数据库表 'newsdatatest'  中 获取imgs url list然后下载  *****************************/
+    ImagSQLDao imagSQLDao = new ImagSQLDao();
+	MysqlDataSource mysql = imagSQLDao.getDataSource();
+	List<String> list = imagSQLDao.qryColumn("img_urls", "newsdatatest");
+	
+	List<String> imgUrlList = new ArrayList<String>();
+	
+	List<Map<String,Object>>  urlsMap = new ArrayList<Map<String,Object>>();  // <news_url,imgs_url> list;
+	int i ,j;
+	int k = 0;
+	for(i=0; i<list.size(); i++){
+		String str = list.get(i);
+		if(!str.equals("NULL")){
+			// get the news_url of these img_urls;
+			String newsUrl = imagSQLDao.getColumnByColumn("news_url", "img_urls", str, "newsdatatest");
+			String[] urls = str.split(";");
+			Map<String,Object> map = new HashMap<String,Object>();
+			for(j=0; j<urls.length; j++){
+				String imgUrl = urls[j];
+				map.put(imgUrl, newsUrl);
+				urlsMap.add(map);
+				//crawlImgUrls[k] = imgUrl;
+				//k++;
+				imgUrlList.add(imgUrl);
+			}
+		}
+	}
+	String[]   crawlImgUrls = new String[imgUrlList.size()] ;
+	for(i=0;i<imgUrlList.size();i++){
+		crawlImgUrls[i] = imgUrlList.get(i);
+	}
+   
     PageFetcher pageFetcher = new PageFetcher(config);
     RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
     RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
     CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
-    for (String domain : crawlDomains) {
+    for (String domain : crawlImgUrls) {
       controller.addSeed(domain);
     }
 
-    ImageCrawler.configure(crawlDomains, storageFolder);
+    ImageCrawler.configure(crawlImgUrls, storageFolder);
+    //ImageCrawler.configure(crawlImgUrls, storageFolder,urlsMap);
 
     controller.start(ImageCrawler.class, numberOfCrawlers);
   }

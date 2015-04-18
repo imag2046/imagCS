@@ -3,16 +3,19 @@ package imag.crawler.mycrawler.basic;
 
 import imag.crawler.crawler.Page;
 import imag.crawler.crawler.WebCrawler;
+import imag.crawler.parser.BinaryParseData;
 import imag.crawler.parser.HtmlParseData;
 import imag.crawler.url.WebURL;
 import imag.databaseSql.dao.ImagSQLDao;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import org.apache.http.Header;
@@ -21,6 +24,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.google.common.io.Files;
 import com.lakeside.data.sqldb.MysqlDataSource;
 
 /**
@@ -245,6 +249,5 @@ public class BasicCrawler extends WebCrawler {
 		}
 		
 	}
-	
 
 }

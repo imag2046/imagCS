@@ -1,6 +1,7 @@
 
 package imag.databaseSql.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,11 +54,6 @@ public class ImagSQLDao {
 		return this.getJdbcTemplate().queryForList(sql, paramMap);
 	}
 	
-	
-	
-	
-	
-	
 	/**
 	 * qry the 'new_url' column with the condation of 'sub_Domain';
 	 * @param subDomain
@@ -72,6 +68,18 @@ public class ImagSQLDao {
 		
 		return this.getJdbcTemplate().queryForList(sql,paramMap,String.class);
 		
+	}
+	
+	public String getColumnByColumn(String qryColName,String conColName,String conColValue,String tableName){
+		// SELECT `news_url` FROM `newsdatatest` WHERE `sub_domain` ="qq.com"
+		StringBuffer sbSql = new StringBuffer();
+		Map<String,Object> paramMap = this.newParameters();
+		sbSql.append(" select  ").append(qryColName).append("   from   ");
+		sbSql.append(tableName).append(" where ");
+		sbSql.append(conColName).append(" =:").append(conColName);
+		paramMap.put(conColName, conColValue);
+		
+		return this.getJdbcTemplate().queryForObject(sbSql.toString(), paramMap, String.class);
 	}
 	
 	/**
@@ -94,6 +102,60 @@ public class ImagSQLDao {
 		return this.getJdbcTemplate().queryForList(sbSql.toString(),paramMap,String.class);
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String>  qryColumn(String qryColName,String tableName){
+		// sql : " SELECT title FROM `newsdatatest` WHERE 1 ";
+		StringBuffer sbSql = new StringBuffer();
+		Map<String,Object> paramMap = this.newParameters();
+		sbSql.append(" select  ").append(qryColName).append("   from   ");
+		sbSql.append(tableName).append(" where 1");
+		
+		return this.getJdbcTemplate().queryForList(sbSql.toString(),paramMap,String.class);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> qryImgDataInfoByNewsUrl(String strNewsUrl){
+		Map<String,Object> map = this.newParameters();
+		// sql : SELECT `img_data`,`img_url` FROM `news_imgs_data` WHERE news_url="www.test.com" ;
+		StringBuffer sbSql = new StringBuffer();
+		sbSql.append(" SELECT `img_data`,`img_url` FROM `news_imgs_data` WHERE news_url=:newsUrl ");
+		Map<String,Object> paramMap = this.newParameters();
+		paramMap.put("newsUrl", strNewsUrl);
+		
+		return this.getJdbcTemplate().queryForList(sbSql.toString(), paramMap);
+	}
+	
+	/**
+	 * @param tableName
+	 * @return
+	 * 返回 imgs_url 和 news_url 两列数据
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> qryImgsUrlsByNewsUrl(String tableName){
+		Map<String,Object> map = this.newParameters();
+		// sql :SELECT`news_url`,`img_urls` FROM `newsdatatest` WHERE 1=1 ;
+		StringBuffer sbSql = new StringBuffer();
+		sbSql.append(" SELECT`news_url`,`img_urls` FROM ");
+		sbSql.append(tableName).append(" where 1=:value");
+		Map<String,Object> paramMap = this.newParameters();
+		paramMap.put("value", "1");
+		
+		return this.getJdbcTemplate().queryForList(sbSql.toString(), paramMap);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<byte[]> qryImgDataByNewsUrl(String strNewsUrl){
+		Map<String,Object> map = this.newParameters();
+		// sql : SELECT `img_data`,`img_url` FROM `news_imgs_data` WHERE news_url="www.test.com" ;
+		StringBuffer sbSql = new StringBuffer();
+		sbSql.append(" SELECT `img_data` FROM `news_imgs_data` WHERE news_url=:newsUrl ");
+		Map<String,Object> paramMap = this.newParameters();
+		paramMap.put("newsUrl", strNewsUrl);
+		
+		return this.getJdbcTemplate().queryForList(sbSql.toString(),paramMap,byte[].class);
+	}
+	
 	
 	/**
 	 * delete data by table id;
