@@ -119,10 +119,18 @@ public class ImageCrawler extends WebCrawler {
     NewsImgsInfor newsImgsInfor = new NewsImgsInfor();
     newsImgsInfor.setImgUrl(strImgUrl);
     newsImgsInfor.setImgData(bImgData);
-    
-    newsImgsInfor.setNewsUrl("www.test.com");
+    // get the news_url of this img_url;
+    for(Map<String,Object> urlsMap:urlsMapList){
+    	if(urlsMap.containsKey(strImgUrl)){
+    		 strNewsUrl = urlsMap.get(strImgUrl).toString();
+    		 //System.out.println("strNewsUrl in map: " + strNewsUrl);
+    	}
+    }
+    newsImgsInfor.setNewsUrl(strNewsUrl);
+    /***************************** Save Into DBase  *****************************/
+    saveImgIntoDBase(newsImgsInfor);
 
-    ///*
+    /*
     // store image
     String filename = storageFolder.getAbsolutePath() + "/" + hashedName;
     try {
@@ -131,9 +139,8 @@ public class ImageCrawler extends WebCrawler {
 	    	System.out.println("error =  " + iox.getMessage());
 	    }
     System.out.println("filename: " + filename);
-   // */
-    /***************************** Save Into DBase  *****************************/
-    //saveImgIntoDBase(newsImgsInfor);
+   */
+   
     
   }
   
@@ -176,7 +183,6 @@ public void  saveImgIntoDBase(NewsImgsInfor newsImgsInfor) {
 		}
 		
 	}
-  
   
   
 }

@@ -84,9 +84,10 @@ public class ImageCrawlController {
 			// get the news_url of these img_urls;
 			String newsUrl = imagSQLDao.getColumnByColumn("news_url", "img_urls", str, "newsdatatest");
 			String[] urls = str.split(";");
-			Map<String,Object> map = new HashMap<String,Object>();
+			
 			for(j=0; j<urls.length; j++){
 				String imgUrl = urls[j];
+				Map<String,Object> map = new HashMap<String,Object>();
 				map.put(imgUrl, newsUrl);
 				urlsMap.add(map);
 				//crawlImgUrls[k] = imgUrl;
@@ -108,8 +109,8 @@ public class ImageCrawlController {
       controller.addSeed(domain);
     }
 
-    ImageCrawler.configure(crawlImgUrls, storageFolder);
-    //ImageCrawler.configure(crawlImgUrls, storageFolder,urlsMap);
+   // ImageCrawler.configure(crawlImgUrls, storageFolder);
+    ImageCrawler.configure(crawlImgUrls, storageFolder,urlsMap);
 
     controller.start(ImageCrawler.class, numberOfCrawlers);
   }
