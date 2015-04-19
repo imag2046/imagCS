@@ -28,11 +28,6 @@ public class BasicCrawlController {
 	    	return;
 	    }
 	    
-	    System.out.println("query keyword : " + args[0]);
-	    System.out.println("start time : " + args[1]);
-	    System.out.println("end   time : " + args[2]);
-	    System.out.println("news domain : " + "all sites in dbase. ");
-
     /*
      * crawlStorageFolder is a folder where intermediate crawl data is
      * stored.
@@ -103,9 +98,13 @@ public class BasicCrawlController {
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
     int nStartPage = Integer.valueOf(args[1]);
     int nEndPage = Integer.valueOf(args[2]);
-    String strQryWord = args[0];
+    String strQryWord = args[0].toString();
+    System.out.println("query keyword : " + strQryWord);
+    System.out.println("start time : " + nStartPage);
+    System.out.println("end   time : " + nEndPage);
     
-    
+    /***********************  save the query word into dbase ***********************/
+  //  ImagSQLDao imagSQLDao = new ImagSQLDao();
     
     for(int iPage=nStartPage;iPage<nEndPage;iPage++){
     	String urlSeed;

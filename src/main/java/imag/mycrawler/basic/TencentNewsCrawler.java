@@ -85,7 +85,22 @@ public class TencentNewsCrawler extends BasicCrawler {
 				/********************* 获得一个以<class="img_wrapper"节点集合  *********************/
 				Elements imgLinks = first.getElementsByClass("img_wrapper");
 				if(imgLinks == null){
-					strImgUrl = "";
+					imgLinks = first.getElementsByClass("mbArticleShareBtn");
+					if(imgLinks == null){
+						strImgUrl = "";
+					}else{
+						StringBuffer stringBuffer = new StringBuffer();
+						int i = 0;
+						for (i = 0; i < imgLinks.size(); i++) {
+							// 遍历集合获得第一个节点元素;
+							Element et = imgLinks.get(i).select("img[src]").first();
+							// 获取元素的src属性;
+							if (et.attr("src") != null)
+								stringBuffer.append(et.attr("src") + ";");
+						}
+						strImgUrl = stringBuffer.toString();
+					}
+					
 				}else{
 					StringBuffer stringBuffer = new StringBuffer();
 					int i = 0;

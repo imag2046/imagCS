@@ -1,19 +1,14 @@
 
 package imag.crawler.mycrawler.basic;
 
-import java.util.List;
-
 import imag.crawler.crawler.CrawlConfig;
 import imag.crawler.crawler.CrawlController;
 import imag.crawler.fetcher.PageFetcher;
 import imag.crawler.robotstxt.RobotstxtConfig;
 import imag.crawler.robotstxt.RobotstxtServer;
-import imag.databaseSql.dao.ImagSQLDao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.lakeside.data.sqldb.MysqlDataSource;
 
 
 /**
@@ -116,7 +111,7 @@ public class BasicCrawlController {
      * You can set the maximum crawl depth here. The default value is -1 for
      * unlimited depth
      */
-    config.setMaxDepthOfCrawling(0);
+    config.setMaxDepthOfCrawling(1);
     
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
     //ImagSQLDao imagSQLDao = new ImagSQLDao();
@@ -125,7 +120,7 @@ public class BasicCrawlController {
 	//List<String> newsUrlsList = imagSQLDao.qryNewsUrlBySubDomain("qq.com");
 	//System.out.println("newsUrlsList : " + newsUrlsList.size());
     
-    for(int iPage=1;iPage<2;iPage++){
+    for(int iPage=1;iPage<50;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
@@ -137,10 +132,10 @@ public class BasicCrawlController {
     	// http://news.sogou.com/news?mode=1&manual=true&query=site:sohu.com +亚投行&sort=0&page=3;
     	//urlSeed =  "http://news.sogou.com/news?mode=1&manual=true&query=" + "亚投行" + "&sort=0&page=" + String.valueOf(iPage);
     	// sohu test;
-    	urlSeed = "http://business.sohu.com/20150416/n411380356.shtml";
+    	//urlSeed = "http://business.sohu.com/20150416/n411380356.shtml";
     	
     	// qq.news;
-    	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
+    	urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
     	//urlSeed = "http://news.qq.com/a/20150406/000453.htm";
     	// 新华网;
@@ -173,9 +168,9 @@ public class BasicCrawlController {
      */
     //controller.start(BasicCrawler.class, numberOfCrawlers);
     
-    //controller.start(TencentNewsCrawler.class, numberOfCrawlers);
+    controller.start(TencentNewsCrawler.class, numberOfCrawlers);
     //controller.start(NetEaseNewsCrawler.class, numberOfCrawlers);
-    controller.start(SohuNewsCrawler.class, numberOfCrawlers);
+    //controller.start(SohuNewsCrawler.class, numberOfCrawlers);
     controller.shutdown();
     
     
