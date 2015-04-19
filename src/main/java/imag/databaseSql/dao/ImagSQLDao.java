@@ -62,7 +62,7 @@ public class ImagSQLDao {
 	@SuppressWarnings("unchecked")
 	public List<String>  qryNewsUrlBySubDomain(String subDomain){
 		// SELECT * FROM `newsdatatest` WHERE `sub_domain`="qq.com"
-		String sql = " SELECT `news_url` FROM `newsdatatest` WHERE `sub_domain` =:subDomain ";
+		String sql = " SELECT `news_url` FROM `newsdata` WHERE `sub_domain` =:subDomain ";
 		Map<String,Object> paramMap = this.newParameters();
 		paramMap.put("subDomain", subDomain);
 		
@@ -71,7 +71,7 @@ public class ImagSQLDao {
 	}
 	
 	public String getColumnByColumn(String qryColName,String conColName,String conColValue,String tableName){
-		// SELECT `news_url` FROM `newsdatatest` WHERE `sub_domain` ="qq.com"
+		// SELECT `news_url` FROM `newsdata` WHERE `sub_domain` ="qq.com"
 		StringBuffer sbSql = new StringBuffer();
 		Map<String,Object> paramMap = this.newParameters();
 		sbSql.append(" select  ").append(qryColName).append("   from   ");
@@ -90,7 +90,7 @@ public class ImagSQLDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<String>  qryColumnByColumn(String qryColName,String conColName,String conColValue,String tableName){
-		// SELECT `news_url` FROM `newsdatatest` WHERE `sub_domain` ="qq.com"
+		// SELECT `news_url` FROM `newsdata` WHERE `sub_domain` ="qq.com"
 		StringBuffer sbSql = new StringBuffer();
 		Map<String,Object> paramMap = this.newParameters();
 		sbSql.append(" select  ").append(qryColName).append("   from   ");
@@ -105,7 +105,7 @@ public class ImagSQLDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<String>  qryColumn(String qryColName,String tableName){
-		// sql : " SELECT title FROM `newsdatatest` WHERE 1 ";
+		// sql : " SELECT title FROM `newsdata` WHERE 1 ";
 		StringBuffer sbSql = new StringBuffer();
 		Map<String,Object> paramMap = this.newParameters();
 		sbSql.append(" select  ").append(qryColName).append("   from   ");
@@ -134,7 +134,7 @@ public class ImagSQLDao {
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> qryImgsUrlsByNewsUrl(String tableName){
 		Map<String,Object> map = this.newParameters();
-		// sql :SELECT`news_url`,`img_urls` FROM `newsdatatest` WHERE 1=1 ;
+		// sql :SELECT`news_url`,`img_urls` FROM `newsdata` WHERE 1=1 ;
 		StringBuffer sbSql = new StringBuffer();
 		sbSql.append(" SELECT`news_url`,`img_urls` FROM ");
 		sbSql.append(tableName).append(" where 1=:value");
@@ -163,7 +163,7 @@ public class ImagSQLDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public void deleteById(long newsId){
-		String sql = " DELETE FROM `newsdatatest` WHERE `id`=:id ";
+		String sql = " DELETE FROM `newsdata` WHERE `id`=:id ";
 		Map<String,Object> paramMap = this.newParameters();
 		paramMap.put("id", newsId);
 		int temp = this.getJdbcTemplate().update(sql, paramMap);

@@ -11,7 +11,8 @@ public class ImagSQLDataSource {
 	private static MysqlDataSource dataSource;
 	public static synchronized MysqlDataSource get(){
 		if(dataSource == null){
-			String jdbcurl = "jdbc:mysql://127.0.0.1:3306/imagdata?useUnicode=true&amp;characterEncoding=UTF-8&amp;charSet=UTF-8";
+			String jdbcurl = "jdbc:mysql://127.0.0.1:3306/imagdatatest?useUnicode=true&amp;characterEncoding=UTF-8&amp;charSet=UTF-8";
+			//String jdbcurl = "jdbc:mysql://127.0.0.1:3306/imagdata?useUnicode=true&amp;characterEncoding=UTF-8&amp;charSet=UTF-8";
 			String userName = "root";
 			String password = "wxm123456";
 			dataSource = new MysqlDataSource(jdbcurl, userName, password);

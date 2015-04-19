@@ -169,7 +169,7 @@ public void  saveImgIntoDBase(NewsImgsInfor newsImgsInfor) {
 		}
 		if(nFlag == 1){ 
 			// there is no  same 'news_url' in the database;
-			String sql = "INSERT INTO `imagdata`.`news_imgs_data` (`id`, `news_url`, `img_url`,  `img_data`) VALUES (NULL, :newsUrl, :imgUrl, :imgData);";
+			String sql = "INSERT INTO `imagdatatest`.`news_imgs_data` (`id`, `news_url`, `img_url`,  `img_data`) VALUES (NULL, :newsUrl, :imgUrl, :imgData);";
 			Map[] maps = new Map[1];
 			for (int i = 0; i < 1; i++) {
 				HashMap<String, Object> paramMap = new HashMap();

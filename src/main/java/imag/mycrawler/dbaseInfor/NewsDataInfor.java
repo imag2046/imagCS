@@ -4,7 +4,7 @@ package imag.mycrawler.dbaseInfor;
 /**
  * @author xmwang
  * @ 2015
- * 对应数据库表  newsdata(测试数据库表是 newsdatatest)
+ * 对应数据库表  newsdata
  */
 public class NewsDataInfor {
 
