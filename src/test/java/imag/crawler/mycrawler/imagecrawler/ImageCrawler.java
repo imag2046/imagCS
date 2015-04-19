@@ -25,14 +25,12 @@ import imag.databaseSql.dao.ImagSQLDao;
 import imag.mycrawler.dbaseInfor.NewsImgsInfor;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import com.google.common.io.Files;
 import com.lakeside.data.sqldb.MysqlDataSource;
 
 /*

@@ -3,6 +3,7 @@ package imag.crawler.mycrawler.basic;
 import imag.crawler.crawler.Page;
 import imag.crawler.parser.HtmlParseData;
 import imag.crawler.url.WebURL;
+import imag.mycrawler.dbaseInfor.NewsDataInfor;
 
 import java.util.Set;
 
@@ -128,10 +129,6 @@ public class TencentNewsCrawler extends BasicCrawler {
 				// System.out.println("\t" + header.getName() + ": " + header.getValue());
 			}
 		}
-		
-		
-		
-		
 
 		/***************** write into file *****************/
 		// String file = "F:/迅雷下载/dataCrawl/亚投行/tencent亚投行/" + String.valueOf(docid) + ".txt";

@@ -33,6 +33,7 @@ public class TencentNewsCrawler extends BasicCrawler {
 		String strTitle = "";
 		String strImgUrl = "";
 		String strVideoUrl = "";
+		String strPubTime = ""; // time format: "2015-04-15 00:10"
 
 		docid = page.getWebURL().getDocid(); // 这是程序定义的ID
 		url = page.getWebURL().getURL(); // URL地址
@@ -58,6 +59,15 @@ public class TencentNewsCrawler extends BasicCrawler {
 
 			/********************* parse the html infor to get the text of this title *********************/
 			Document doc = Jsoup.parse(html);
+			
+			/**********************     get the publicl time                        **********************/
+			Elements timeLabel = doc.select("[class=article-time]");
+			if(timeLabel !=null){
+				strPubTime = timeLabel.get(0).text();
+			}
+			
+			System.out.println("strPubTime: " + strPubTime);
+			
 			// Element first = doc.select("div.bd").first();
 			Element first = doc.getElementById("Cnt-Main-Article-QQ");
 			if (first == null) {
@@ -126,6 +136,7 @@ public class TencentNewsCrawler extends BasicCrawler {
 		/***************** Save Into NewsDataInfor Class *****************/
 		NewsDataInfor newsDataInfor = new NewsDataInfor();
 		newsDataInfor.setNewsUrl(url);
+		newsDataInfor.setPubTime(strPubTime == null ? "NULL" : strPubTime);
 		newsDataInfor.setParentUrl(parentUrl == null ? "NULL" : parentUrl);
 		newsDataInfor.setSubDomain(domain);
 		newsDataInfor.setDocId(docid);

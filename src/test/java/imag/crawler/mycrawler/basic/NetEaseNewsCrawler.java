@@ -4,6 +4,7 @@ package imag.crawler.mycrawler.basic;
 import imag.crawler.crawler.Page;
 import imag.crawler.parser.HtmlParseData;
 import imag.crawler.url.WebURL;
+import imag.mycrawler.dbaseInfor.NewsDataInfor;
 
 import java.util.Set;
 
