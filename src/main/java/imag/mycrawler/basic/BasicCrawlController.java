@@ -103,6 +103,7 @@ public class BasicCrawlController {
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
     int nStartPage = Integer.valueOf(args[1]);
     int nEndPage = Integer.valueOf(args[2]);
+    String strQryWord = args[0];
     
     
     
@@ -114,7 +115,7 @@ public class BasicCrawlController {
     	// http://news.sogou.com/news?mode=1&manual=true&query=site:sohu.com +亚投行&sort=0&page=3;
     	//urlSeed =  "http://news.sogou.com/news?mode=1&manual=true&query=" + "亚投行" + "&sort=0&page=" + String.valueOf(iPage);
     	// qq.news;
-    	urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + "亚投行" + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
+    	urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + strQryWord + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
     	//urlSeed = "http://view.news.qq.com/original/intouchtoday/n3115.html";
     	// 新华网;
