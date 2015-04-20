@@ -18,6 +18,42 @@ import org.jsoup.select.Elements;
  * @ 2015
  */
 public class TencentNewsCrawler extends BasicCrawler {
+	
+//	private static final Pattern IMAGE_EXTENSIONS = Pattern
+//			.compile(".*\\.(bmp|gif|jpg|png)$");
+//
+//	private static final Pattern URL_PATTERNS = Pattern
+//			.compile(".*(\\.(shtml|html|htm))$");
+//	
+//   private static String strQryWord;
+//	
+//	
+//	public static void configure(String qryWord) {
+//		strQryWord = qryWord;
+//	  }
+	
+	/**
+	 * You should implement this function to specify whether the given url
+	 * should be crawled or not (based on your crawling logic).
+	 */
+//	@Override
+//	public boolean shouldVisit(Page referringPage, WebURL url) {
+//		String href = url.getURL().toLowerCase();
+//		// Ignore the url if it has an extension that matches our defined set of
+//		// image extensions.
+//		if (IMAGE_EXTENSIONS.matcher(href).matches()) {
+//			return false;
+//		}
+//
+//		// filter the url to get the target url and to download;
+//		if (URL_PATTERNS.matcher(href).matches()) {
+//			return true;
+//		}
+//
+//		// Only accept the url if it is in the "www.ics.uci.edu" domain and
+//		// protocol is "http".
+//		return false;
+//	}
 
 	@Override
 	public void visit(Page page) {
@@ -156,11 +192,12 @@ public class TencentNewsCrawler extends BasicCrawler {
 			}
 		}
 
-		/***************** write into file *****************/
+		/*********************************** write into file ***********************************/
 		// String file = "F:/迅雷下载/dataCrawl/亚投行/tencent亚投行/" + String.valueOf(docid) + ".txt";
 		// super.saveIntoFile(file,url,parentUrl,responseHeaders,strTitle,strContText);
-		/***************** Save Into NewsDataInfor Class *****************/
+		/****************************** Save Into NewsDataInfor Class ******************************/
 		NewsDataInfor newsDataInfor = new NewsDataInfor();
+		newsDataInfor.setQryWord(super.getQryWord());
 		newsDataInfor.setNewsUrl(url);
 		newsDataInfor.setPubTime(strPubTime == null ? "NULL" : strPubTime);
 		newsDataInfor.setParentUrl(parentUrl == null ? "NULL" : parentUrl);

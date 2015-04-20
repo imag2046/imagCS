@@ -4,6 +4,7 @@ package imag.mycrawler.basic;
 import imag.crawler.crawler.CrawlConfig;
 import imag.crawler.crawler.CrawlController;
 import imag.crawler.fetcher.PageFetcher;
+//import imag.crawler.mycrawler.basic.TencentNewsCrawler;
 import imag.crawler.robotstxt.RobotstxtConfig;
 import imag.crawler.robotstxt.RobotstxtServer;
 
@@ -146,6 +147,7 @@ public class BasicCrawlController {
      * will reach the line after this only when crawling is finished.
      */
     //controller.start(BasicCrawler.class, numberOfCrawlers);
+    BasicCrawler.configure(strQryWord);
     controller.start(TencentNewsCrawler.class, numberOfCrawlers);
     
     controller.shutdown();

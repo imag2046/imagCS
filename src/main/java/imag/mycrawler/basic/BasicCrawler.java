@@ -35,6 +35,19 @@ public class BasicCrawler extends WebCrawler {
 
 	private static final Pattern URL_PATTERNS = Pattern
 			.compile(".*(\\.(shtml|html|htm))$");
+	
+	private static String strQryWord;
+	
+	public static void configure(String qryWord) {
+		strQryWord = qryWord;
+	}
+	
+	public String getQryWord(){
+		return strQryWord;
+	}
+	public void setQryWord(String strQryWord){
+		this.strQryWord = strQryWord;
+	}
 
 	/**
 	 * You should implement this function to specify whether the given url
@@ -227,10 +240,11 @@ public class BasicCrawler extends WebCrawler {
 		}
 		if(nFlag == 1){ 
 			// there is no  same 'news_url' in the database;
-			String sql = "INSERT INTO `imagdata`.`newsdata` (`id`, `news_url`, `pub_time`,  `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :newsUrl, :pubTime, :parentUrl, :subDomain, :docId,:imgUrls,:videoUrls,:newsTitle,:newsDocument);";
+			String sql = "INSERT INTO `imagdata`.`newsdata` (`id`, `qry_word`, `news_url`, `pub_time`,  `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :qryWord, :newsUrl, :pubTime, :parentUrl, :subDomain, :docId,:imgUrls,:videoUrls,:newsTitle,:newsDocument);";
 			Map[] maps = new Map[1];
 			for (int i = 0; i < 1; i++) {
 				HashMap<String, Object> paramMap = new HashMap();
+				paramMap.put("qryWord", newsDataInfor.getQryWord());
 				paramMap.put("newsUrl", newsDataInfor.getNewsUrl());
 				paramMap.put("pubTime", newsDataInfor.getPubTime());
 				paramMap.put("parentUrl", newsDataInfor.getParentUrl());

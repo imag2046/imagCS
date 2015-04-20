@@ -9,6 +9,8 @@ public class NewsDataInfor {
 
 	protected long id;
 	
+	protected String qryWord;
+	
 	protected String newsUrl;
 	
 	protected String pubTime;
@@ -33,6 +35,13 @@ public class NewsDataInfor {
 	}
 	public void setId(long id){
 		this.id = id;
+	}
+	
+	public String getQryWord(){
+		return qryWord;
+	}
+	public void setQryWord(String qryWord){
+		this.qryWord = qryWord;
 	}
 	
 	public String getNewsUrl(){
