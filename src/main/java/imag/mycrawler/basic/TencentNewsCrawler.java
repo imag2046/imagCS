@@ -72,7 +72,7 @@ public class TencentNewsCrawler extends BasicCrawler {
 					strPubTime = timeLabel.get(0).text();
 				}
 			}
-			
+			 
 			System.out.println("strPubTime: " + strPubTime);
 			
 			// Element first = doc.select("div.bd").first();
