@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package imag.crawler.mycrawler.imagecrawler;
 
 import imag.crawler.crawler.Page;
