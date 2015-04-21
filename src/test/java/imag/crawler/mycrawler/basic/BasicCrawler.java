@@ -90,13 +90,13 @@ public class BasicCrawler extends WebCrawler {
 		String anchor = page.getWebURL().getAnchor(); // 锚，即HTML显示的信息，如<a
 														// href="***">锚</a>
 
-		System.out.println("Docid: " + docid);
+		/*System.out.println("Docid: " + docid);
 		System.out.println("URL: " + url);
 		System.out.println("Domain: '" + domain + "'");
 		System.out.println("Sub-domain: '" + subDomain + "'");
 		System.out.println("Path: '" + path + "'");
 		System.out.println("Parent page: " + parentUrl);
-		System.out.println("Anchor text: " + anchor);
+		System.out.println("Anchor text: " + anchor);*/
 
 		String strContent = "";
 		String strContText = "";
