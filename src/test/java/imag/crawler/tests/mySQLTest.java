@@ -42,31 +42,36 @@ public class mySQLTest {
 //		
 //		System.out.println("list.size = " + list.size());
 		
-		 ImagSQLDao imagSQLDao = new ImagSQLDao();
-			MysqlDataSource mysql = imagSQLDao.getDataSource();
-			List<String> list = imagSQLDao.qryColumn("img_urls", "newsdatatest");
-			
-			List<Map<String,Object>>  urlsMap = new ArrayList<Map<String,Object>>();  // <news_url,imgs_url> list;
-			int i = 0;
-			for(i=0; i<list.size(); i++){
-				String str = list.get(i);
-				if(!str.equals("NULL")){
-					// get the news_url of these img_urls;
-					String newsUrl = imagSQLDao.getColumnByColumn("news_url", "img_urls", str, "newsdatatest");
-					System.out.println("newsUrl = " + newsUrl);
-					String[] urls = str.split(";");
-					
-					
-					
-					//Map<String,Object> map = new HashMap<String,Object>();
-					
-				}
-			}
+//		 ImagSQLDao imagSQLDao = new ImagSQLDao();
+//			MysqlDataSource mysql = imagSQLDao.getDataSource();
+//			List<String> list = imagSQLDao.qryColumn("img_urls", "newsdatatest");
+//			
+//			List<Map<String,Object>>  urlsMap = new ArrayList<Map<String,Object>>();  // <news_url,imgs_url> list;
+//			int i = 0;
+//			for(i=0; i<list.size(); i++){
+//				String str = list.get(i);
+//				if(!str.equals("NULL")){
+//					// get the news_url of these img_urls;
+//					String newsUrl = imagSQLDao.getColumnByColumn("news_url", "img_urls", str, "newsdatatest");
+//					System.out.println("newsUrl = " + newsUrl);
+//					String[] urls = str.split(";");
+//					
+//					
+//					
+//					//Map<String,Object> map = new HashMap<String,Object>();
+//					
+//				}
+//			}
 		
+		ImagSQLDao imagSQLDao = new ImagSQLDao();
 		
+		List<Map<String, Object>> list = imagSQLDao.qryRowDataByColumn("news_url", "http://news.qq.com/a/20140118/005550.htm");
 		
-		
-		
+		int i=0;
+		for(i = 0;i<list.size();i++){
+			Map<String,Object> map = list.get(i);
+			System.out.println("id = " + map.get("id"));
+		}
 		
 		
 		

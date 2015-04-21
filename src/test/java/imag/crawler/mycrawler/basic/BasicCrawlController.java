@@ -111,7 +111,7 @@ public class BasicCrawlController {
      * You can set the maximum crawl depth here. The default value is -1 for
      * unlimited depth
      */
-    config.setMaxDepthOfCrawling(0);
+    config.setMaxDepthOfCrawling(1);
     
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
     //ImagSQLDao imagSQLDao = new ImagSQLDao();
@@ -135,9 +135,9 @@ public class BasicCrawlController {
     	//urlSeed = "http://business.sohu.com/20150416/n411380356.shtml";
     	
     	// qq.news;
-    	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + strQryWord + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
+    	urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + strQryWord + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
-    	urlSeed = "http://news.qq.com/a/20111205/001338.htm";
+    	//urlSeed = "http://news.qq.com/a/20111205/001338.htm";
     	// 新华网;
     	//urlSeed =  "http://info.search.news.cn/result.jspa?pno=" + String.valueOf(iPage) + "&rp=10&t1=0&btn=&t=1&n1=" + "亚投行" + "&np=1&ss=2";
     	// xinhuawang test;

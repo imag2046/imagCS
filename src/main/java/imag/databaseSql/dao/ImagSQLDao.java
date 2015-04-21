@@ -127,6 +127,25 @@ public class ImagSQLDao {
 	}
 	
 	/**
+	 * @param strColumnName
+	 * @param strColumnValue
+	 * @return 
+	 * 返回 一行Map<String,Object> 数据或是 多行的 Map<String,Object> 数据
+	 * Map<String,Object>中key为库表中的字段名
+	 */
+	public List<Map<String,Object>> qryRowDataByColumn(String strColumnName,String strColumnValue){
+		Map<String,Object> map = this.newParameters();
+		// sql : SELECT `id`,`qry_word`,`news_url`,`pub_time`,`parent_url`,`sub_domain`,`img_urls`,`video_urls`,`title`,`document`,`web_cache` FROM `newsdata` WHERE `id`=100 ;
+		StringBuffer sbSql = new StringBuffer();
+		sbSql.append(" SELECT `id`,`qry_word`,`news_url`,`pub_time`,`parent_url`,`sub_domain`,`img_urls`,`video_urls`,`title`,`document`  FROM `newsdata` WHERE  ");
+		sbSql.append(strColumnName).append("=:").append(strColumnName);
+		Map<String,Object> paramMap = this.newParameters();
+		paramMap.put(strColumnName, strColumnValue);
+		
+		return this.getJdbcTemplate().queryForList(sbSql.toString(), paramMap);
+	}
+	
+	/**
 	 * @param tableName
 	 * @return
 	 * 返回 imgs_url 和 news_url 两列数据

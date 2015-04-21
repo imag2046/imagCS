@@ -6,6 +6,7 @@ import imag.crawler.url.WebURL;
 import imag.mycrawler.dbaseInfor.NewsDataInfor;
 
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.http.Header;
 import org.jsoup.Jsoup;
@@ -18,6 +19,37 @@ import org.jsoup.select.Elements;
  * @ 2015
  */
 public class TencentNewsCrawler extends BasicCrawler {
+	
+	private static final Pattern IMAGE_EXTENSIONS = Pattern
+			.compile(".*\\.(bmp|gif|jpg|png)$");
+
+	private static final Pattern URL_PATTERNS = Pattern
+			.compile(".*(\\.(shtml|html|htm))$");
+	
+	
+	/**
+	 * You should implement this function to specify whether the given url
+	 * should be crawled or not (based on your crawling logic).
+	 */
+	@Override
+	public boolean shouldVisit(Page referringPage, WebURL url) {
+		String href = url.getURL().toLowerCase();
+		// Ignore the url if it has an extension that matches our defined set of
+		// image extensions.
+		if (IMAGE_EXTENSIONS.matcher(href).matches()) {
+			return false;
+		}
+
+		// filter the url to get the target url and to download;
+		if (URL_PATTERNS.matcher(href).matches()) {
+			return true;
+		}
+
+		// Only accept the url if it is in the "www.ics.uci.edu" domain and
+		// protocol is "http".
+		return false;
+	}
+	
 
 	@Override
 	public void visit(Page page) {

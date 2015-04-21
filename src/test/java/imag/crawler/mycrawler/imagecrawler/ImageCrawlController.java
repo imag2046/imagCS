@@ -74,24 +74,26 @@ public class ImageCrawlController {
 	List<String> list = imagSQLDao.qryColumn("img_urls", "newsdatatest");
 	
 	List<String> imgUrlList = new ArrayList<String>();
+	String   newsUrl = "";
+	String   qryWord = "";
 	
-	List<Map<String,Object>>  urlsMap = new ArrayList<Map<String,Object>>();  // <news_url,imgs_url> list;
+	List<Map<String,Object>>  urlsMap = new ArrayList<Map<String,Object>>();  // <'imgs_url','qry_word,news_url'> list;
 	int i ,j;
-	int k = 0;
 	for(i=0; i<list.size(); i++){
 		String str = list.get(i);
 		if(!str.equals("NULL")){
 			// get the news_url of these img_urls;
-			String newsUrl = imagSQLDao.getColumnByColumn("news_url", "img_urls", str, "newsdatatest");
+			newsUrl = imagSQLDao.getColumnByColumn("news_url", "img_urls", str, "newsdatatest");// get news_url;
+			qryWord = imagSQLDao.getColumnByColumn("qry_word", "img_urls", str, "newsdatatest");// get qry_word;
 			String[] urls = str.split(";");
+			StringBuffer sb = new StringBuffer();
+			sb.append(qryWord).append(",").append(newsUrl);// String: "qry_word,news_url";
 			
 			for(j=0; j<urls.length; j++){
 				String imgUrl = urls[j];
 				Map<String,Object> map = new HashMap<String,Object>();
-				map.put(imgUrl, newsUrl);
+				map.put(imgUrl, sb.toString());
 				urlsMap.add(map);
-				//crawlImgUrls[k] = imgUrl;
-				//k++;
 				imgUrlList.add(imgUrl);
 			}
 		}
@@ -100,6 +102,7 @@ public class ImageCrawlController {
 	for(i=0;i<imgUrlList.size();i++){
 		crawlImgUrls[i] = imgUrlList.get(i);
 	}
+	/***************************** 修改成从数据库表 'newsdatatest'  中 获取imgs url list然后下载  *****************************/
    
     PageFetcher pageFetcher = new PageFetcher(config);
     RobotstxtConfig robotstxtConfig = new RobotstxtConfig();

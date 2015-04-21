@@ -65,9 +65,7 @@ public class ImageCrawler extends WebCrawler {
   
   public static void configure(String[] domain, String storageFolderName, List<Map<String,Object>>  urlsMap) {
 	    crawlDomains = domain;
-	    
 	    urlsMapList = urlsMap;
-
 	    storageFolder = new File(storageFolderName);
 	    if (!storageFolder.exists()) {
 	      storageFolder.mkdirs();
@@ -97,14 +95,15 @@ public class ImageCrawler extends WebCrawler {
   public void visit(Page page) {
 	  
     String   strImgUrl = "";
-    String   strNewsUrl = ""; // img url 对应的 news url;
+    String   strNewsUrl = ""; // img_url 对应的 news_url;
+    String   strQryWord = ""; // img_url 对应的 qry_word;
 	  
     strImgUrl = page.getWebURL().getURL();
     System.out.println("strImgUrl: " + strImgUrl);
     
-    // We are only interested in processing images which are bigger than 10k
+    // We are only interested in processing images which are bigger than 10k;
     if (!imgPatterns.matcher(strImgUrl).matches() ||
-        !((page.getParseData() instanceof BinaryParseData) || (page.getContentData().length < (1024000 * 1024)))) {
+        !((page.getParseData() instanceof BinaryParseData) || (page.getContentData().length < (10 * 1024)))) {
       return;
     }
 
@@ -120,11 +119,13 @@ public class ImageCrawler extends WebCrawler {
     // get the news_url of this img_url;
     for(Map<String,Object> urlsMap:urlsMapList){
     	if(urlsMap.containsKey(strImgUrl)){
-    		 strNewsUrl = urlsMap.get(strImgUrl).toString();
-    		 //System.out.println("strNewsUrl in map: " + strNewsUrl);
+    		String strTmp[] = urlsMap.get(strImgUrl).toString().split(",");
+    		strQryWord = strTmp[0];  // get qry_word of this img_url;
+    		strNewsUrl = strTmp[1];  // get news_url of this img_url;
     	}
     }
     newsImgsInfor.setNewsUrl(strNewsUrl);
+    newsImgsInfor.setQryWord(strQryWord);
     /***************************** Save Into DBase  *****************************/
     saveImgIntoDBase(newsImgsInfor);
 
@@ -167,10 +168,11 @@ public void  saveImgIntoDBase(NewsImgsInfor newsImgsInfor) {
 		}
 		if(nFlag == 1){ 
 			// there is no  same 'news_url' in the database;
-			String sql = "INSERT INTO `imagdatatest`.`news_imgs_data` (`id`, `news_url`, `img_url`,  `img_data`) VALUES (NULL, :newsUrl, :imgUrl, :imgData);";
+			String sql = "INSERT INTO `imagdatatest`.`news_imgs_data` (`id`,`qry_word`, `news_url`, `img_url`,  `img_data`) VALUES (NULL, :qryWord, :newsUrl, :imgUrl, :imgData);";
 			Map[] maps = new Map[1];
 			for (int i = 0; i < 1; i++) {
 				HashMap<String, Object> paramMap = new HashMap();
+				paramMap.put("qryWord",newsImgsInfor.getQryWord());
 				paramMap.put("newsUrl", newsImgsInfor.getNewsUrl());
 				paramMap.put("imgUrl", newsImgsInfor.getImgUrl());
 				paramMap.put("imgData", newsImgsInfor.getImgData());

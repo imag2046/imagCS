@@ -2,11 +2,16 @@ package imag.mycrawler.dbaseInfor;
 
 /**
  * @author wxm516
+ * 
+ */
+/*
  * 对应数据库表 news_imgs_data,保存含有img的news链接对应的图片二进制数据;
  */
 public class NewsImgsInfor {
 
 	protected long    id;
+	
+	protected String  qryWord;
 	
 	protected String  newsUrl;
 	
@@ -19,6 +24,13 @@ public class NewsImgsInfor {
 	}
 	public void setId(long id){
 		this.id = id;
+	}
+	
+	public String getQryWord(){
+		return qryWord;
+	}
+	public void setQryWord(String qryWord){
+		this.qryWord = qryWord;
 	}
 	
 	public String getNewsUrl(){
