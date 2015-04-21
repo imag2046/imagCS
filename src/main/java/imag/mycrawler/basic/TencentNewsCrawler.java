@@ -64,8 +64,13 @@ public class TencentNewsCrawler extends BasicCrawler {
 			
 			/**********************     get the publicl time                        **********************/
 			Elements timeLabel = doc.select("[class=article-time]");
-			if(timeLabel !=null){
+			if(timeLabel.size() != 0){
 				strPubTime = timeLabel.get(0).text();
+			}else{
+				timeLabel = doc.select("[class=pubTime]");  // 不同来源的新闻的格式不同;
+				if(timeLabel.size() != 0){
+					strPubTime = timeLabel.get(0).text();
+				}
 			}
 			
 			System.out.println("strPubTime: " + strPubTime);
