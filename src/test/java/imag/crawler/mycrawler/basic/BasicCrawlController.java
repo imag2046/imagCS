@@ -120,7 +120,7 @@ public class BasicCrawlController {
 	//List<String> newsUrlsList = imagSQLDao.qryNewsUrlBySubDomain("qq.com");
 	//System.out.println("newsUrlsList : " + newsUrlsList.size());
     String strQryWord = "亚投行";
-    for(int iPage=1;iPage<50;iPage++){
+    for(int iPage=1;iPage<2;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
@@ -137,7 +137,7 @@ public class BasicCrawlController {
     	// qq.news;
     	//urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + strQryWord + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
-    	urlSeed = "http://news.qq.com/a/20150328/012137.htm?tu_biz=1.114.2.1";
+    	urlSeed = "http://news.qq.com/a/20150410/043635.htm";
     	// 新华网;
     	//urlSeed =  "http://info.search.news.cn/result.jspa?pno=" + String.valueOf(iPage) + "&rp=10&t1=0&btn=&t=1&n1=" + "亚投行" + "&np=1&ss=2";
     	// xinhuawang test;

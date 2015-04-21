@@ -5,6 +5,9 @@ package imag.mycrawler.dbaseInfor;
  * @author xmwang
  * @ 2015
  */
+/**
+ *description: table "newsdata" 
+ */
 public class NewsDataInfor {
 
 	protected long id;
@@ -19,8 +22,6 @@ public class NewsDataInfor {
 	
 	protected String subDomain;
 	
-	protected long docId;
-	
 	protected String imgUrls;
 	
 	protected String videoUrls;
@@ -28,6 +29,8 @@ public class NewsDataInfor {
 	protected String newsTitle;
 	
 	protected String newsDocument;
+	
+	protected String webCache;
 	
 	
 	public long getId(){
@@ -72,13 +75,6 @@ public class NewsDataInfor {
 		this.subDomain = subDomain;
 	}
 	
-	public long getDocId(){
-		return docId;
-	}
-	public void setDocId(long docId){
-		this.docId = docId;
-	}
-	
 	public String getImgUrls(){
 		return imgUrls;
 	}
@@ -105,6 +101,13 @@ public class NewsDataInfor {
 	}
 	public void setNewsDocument(String newsDocument){
 		this.newsDocument = newsDocument;
+	}
+	
+	public String getWebCache(){
+		return webCache;
+	}
+	public void setWebCache(String webCache){
+		this.webCache = webCache;
 	}
 
 }

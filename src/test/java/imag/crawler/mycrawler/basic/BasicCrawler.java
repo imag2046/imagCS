@@ -44,7 +44,12 @@ public class BasicCrawler extends WebCrawler {
 		strQryWord = qryWord;
 	  }
 	
-	
+	public String getQryWord(){
+		return strQryWord;
+	}
+	public void setQryWord(String qryWord){
+		this.strQryWord = qryWord;
+	}
 	
 
 	/**
@@ -238,7 +243,7 @@ public class BasicCrawler extends WebCrawler {
 		}
 		if(nFlag == 1){ 
 			// there is no  same 'news_url' in the database;
-			String sql = "INSERT INTO `imagdata`.`newsdata` (`id`, `qry_word`, `news_url`, `pub_time`,  `parent_url`, `sub_domain`, `docid`,`img_urls`,`video_urls`,`title`,`document`) VALUES (NULL, :qryWord, :newsUrl, :pubTime, :parentUrl, :subDomain, :docId,:imgUrls,:videoUrls,:newsTitle,:newsDocument);";
+			String sql = "INSERT INTO `imagdata`.`newsdata` (`id`, `qry_word`, `news_url`, `pub_time`,  `parent_url`, `sub_domain`, `img_urls`,`video_urls`,`title`,`document`,`web_cache`) VALUES (NULL, :qryWord, :newsUrl, :pubTime, :parentUrl, :subDomain, :imgUrls,:videoUrls,:newsTitle,:newsDocument, :webCache);";
 			Map[] maps = new Map[1];
 			for (int i = 0; i < 1; i++) {
 				HashMap<String, Object> paramMap = new HashMap();
@@ -247,11 +252,11 @@ public class BasicCrawler extends WebCrawler {
 				paramMap.put("pubTime", newsDataInfor.getPubTime());
 				paramMap.put("parentUrl", newsDataInfor.getParentUrl());
 				paramMap.put("subDomain", newsDataInfor.getSubDomain());
-				paramMap.put("docId", newsDataInfor.getDocId());
 				paramMap.put("imgUrls", newsDataInfor.getImgUrls());
 				paramMap.put("videoUrls", newsDataInfor.getVideoUrls());
 				paramMap.put("newsTitle", newsDataInfor.getNewsTitle());
 				paramMap.put("newsDocument", newsDataInfor.getNewsDocument());
+				paramMap.put("webCache", newsDataInfor.getWebCache());
 				maps[i] = paramMap;
 			}
 			imagSQLDao.saveIntoBase(sql, maps);

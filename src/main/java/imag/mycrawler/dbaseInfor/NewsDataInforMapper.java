@@ -20,11 +20,11 @@ public class NewsDataInforMapper implements RowMapper {
 		infor.setNewsUrl(rs.getString("news_url"));
 		infor.setParentUrl(rs.getString("parent_url"));
 		infor.setSubDomain(rs.getString("sub_domain"));
-		infor.setDocId(rs.getLong("docid"));
 		infor.setImgUrls(rs.getString("img_urls"));
 		infor.setVideoUrls(rs.getString("video_urls"));
 		infor.setNewsTitle(rs.getString("title"));
 		infor.setNewsDocument(rs.getString("document"));
+		infor.setWebCache(rs.getString("web_cache"));
 
 		return infor;
 	}
