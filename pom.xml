@@ -16,8 +16,8 @@
 	</licenses>
 	<scm>
 		<url>https://github.com/imag2046/imagProject</url>
-		<connection>scm:git:git@github.com:imag2046/imagProject.git</connection>
-		<developerConnection>scm:git:git@github.com:imag2046/imagProject.git</developerConnection>
+		<connection>scm:git:git@github.com:imag2046/imagCS.git</connection>
+		<developerConnection>scm:git:git@github.com:imag2046/imagCS.git</developerConnection>
 	</scm>
 
 	<parent>
