@@ -1,9 +1,10 @@
 
-package imag.crawler.mycrawler.basic;
+package imag.mycrawler.basic;
 
 import imag.crawler.crawler.CrawlConfig;
 import imag.crawler.crawler.CrawlController;
 import imag.crawler.fetcher.PageFetcher;
+//import imag.crawler.mycrawler.basic.TencentNewsCrawler;
 import imag.crawler.robotstxt.RobotstxtConfig;
 import imag.crawler.robotstxt.RobotstxtServer;
 
@@ -13,8 +14,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author wxm516
- * @description This file is used for debug, not for maven package to a execute jar file;
- *              The same file in src/main/java is used for maven package to a execute jar file;
+ *
  */
 public class BasicCrawlController {
   private static final Logger logger = LoggerFactory.getLogger(BasicCrawlController.class);
@@ -24,16 +24,10 @@ public class BasicCrawlController {
 	  if (args.length != 3) {
 	    	logger.info("Needed parameters: ");
 	    	logger.info("\t the query keyword used to crawl ");
-	    	logger.info("\t the start page to crawl ");
-	    	logger.info("\t the end   page to crawl ");
-	    	//return;
+	    	logger.info("\t the start time to crawl ");
+	    	logger.info("\t the end   time to crawl ");
+	    	return;
 	    }
-	    
-	    //System.out.println("query keyword : " + args[0]);
-	    //System.out.println("start page : " + args[1]);
-	    //System.out.println("end   page : " + args[2]);
-	    System.out.println("news domain : " + "all sites in dbase. ");
-    
 	    
     /*
      * crawlStorageFolder is a folder where intermediate crawl data is
@@ -50,19 +44,16 @@ public class BasicCrawlController {
      * second (1000 milliseconds between requests).
      */
     config.setPolitenessDelay(1000);
-
     /*
      * You can set the maximum number of pages to crawl. The default value
      * is -1 for unlimited number of pages
      */
     config.setMaxPagesToFetch(-1);
-
     /**
      * Do you want crawler4j to crawl also binary data ?
      * example: the contents of pdf, or the metadata of images etc
      */
     config.setIncludeBinaryContentInCrawling(false);
-
     /*
      * Do you need to set a proxy? If so, you can use:
      * config.setProxyHost("proxyserver.example.com");
@@ -71,7 +62,6 @@ public class BasicCrawlController {
      * If your proxy also needs authentication:
      * config.setProxyUsername(username); config.getProxyPassword(password);
      */
-
     /*
      * This config parameter can be used to set your crawl to be resumable
      * (meaning that you can resume the crawl from a previously
@@ -94,18 +84,11 @@ public class BasicCrawlController {
      * URLs that are fetched and then the crawler starts following links
      * which are found in these pages
      */
-   // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=%E5%8D%97%E4%BA%AC");  // 南京;
-   // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=反腐");  // 中科院;
-   // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=环保");  // 中科院;
-   // controller.addSeed("http://news.qq.com/dc_column_article/TagsList.htm?tags=南京理工大学");  // 中科院;
     
-    
-    /*******************下面的两个参数是需要修改的1-numberOfCrawlers 2-setMaxDepthOfCrawling********************************************/
     /*
      * numberOfCrawlers shows the number of concurrent threads that should
      * be initiated for crawling.
      */
-    //int numberOfCrawlers = Integer.parseInt(args[1]);
     int numberOfCrawlers = 1;
     /*
      * You can set the maximum crawl depth here. The default value is -1 for
@@ -114,30 +97,27 @@ public class BasicCrawlController {
     config.setMaxDepthOfCrawling(1);
     
     // 获得对应的site domain上的urlSeed格式,然后根据页码进行拼接url;
-    //ImagSQLDao imagSQLDao = new ImagSQLDao();
-	//MysqlDataSource mysql = imagSQLDao.getDataSource();
-	
-	//List<String> newsUrlsList = imagSQLDao.qryNewsUrlBySubDomain("qq.com");
-	//System.out.println("newsUrlsList : " + newsUrlsList.size());
-    String strQryWord = "马化腾 深圳";
-    for(int iPage=1;iPage<2;iPage++){
+    int nStartPage = Integer.valueOf(args[1]);
+    int nEndPage = Integer.valueOf(args[2]);
+    String strQryWord = args[0].toString();
+    System.out.println("query keyword : " + strQryWord);
+    System.out.println("start time : " + nStartPage);
+    System.out.println("end   time : " + nEndPage);
+    
+    /***********************  save the query word into dbase ***********************/
+  //  ImagSQLDao imagSQLDao = new ImagSQLDao();
+    
+    for(int iPage=nStartPage;iPage<nEndPage;iPage++){
     	String urlSeed;
     	// 163;
     	//urlSeed =   "http://news.yodao.com/search?q=" + "亚投行" + "&start=" + String.valueOf((iPage-1)*10) + "&s=rank&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
-    	// 163;
-    	//urlSeed = "http://news.china.com.cn/rollnews/news/live/2015-04/16/content_32314835.htm";
-    	
-    	
     	// sohu;
     	// http://news.sogou.com/news?mode=1&manual=true&query=site:sohu.com +亚投行&sort=0&page=3;
     	//urlSeed =  "http://news.sogou.com/news?mode=1&manual=true&query=" + "亚投行" + "&sort=0&page=" + String.valueOf(iPage);
-    	// sohu test;
-    	//urlSeed = "http://business.sohu.com/20150416/n411380356.shtml";
-    	
     	// qq.news;
     	urlSeed =  "http://www.sogou.com/sogou?site=news.qq.com&query=" + strQryWord + "&pid=sogou-wsse-b58ac8403eb9cf17-0004&idx=f&page=" + String.valueOf(iPage);
     	// qq.news test;
-    	//urlSeed = "http://news.qq.com/a/20111205/001338.htm";
+    	//urlSeed = "http://view.news.qq.com/original/intouchtoday/n3115.html";
     	// 新华网;
     	//urlSeed =  "http://info.search.news.cn/result.jspa?pno=" + String.valueOf(iPage) + "&rp=10&t1=0&btn=&t=1&n1=" + "亚投行" + "&np=1&ss=2";
     	// xinhuawang test;
@@ -167,13 +147,10 @@ public class BasicCrawlController {
      * will reach the line after this only when crawling is finished.
      */
     //controller.start(BasicCrawler.class, numberOfCrawlers);
-    TencentNewsCrawler.configure(strQryWord);
+    BasicCrawler.configure(strQryWord);
     controller.start(TencentNewsCrawler.class, numberOfCrawlers);
-    //controller.start(NetEaseNewsCrawler.class, numberOfCrawlers);
-    //controller.start(SohuNewsCrawler.class, numberOfCrawlers);
+    
     controller.shutdown();
-    
-    
    
   }
 }

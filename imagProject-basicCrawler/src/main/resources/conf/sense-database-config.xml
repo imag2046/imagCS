@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this configure file contain some global settings for the application -->
+<configuration>
+    <!--hbase settings -->
+    <!--deeplearn sense database config -->
+   <property>
+		  <name>imagdata.jdbc.url</name>
+		  <value>jdbc:mysql://127.0.0.1:3306/newsdatatest?useUnicode=true&amp;characterEncoding=UTF-8&amp;charSet=UTF-8</value>
+	</property>
+	<property>
+		  <name>imagdata.jdbc.username</name>
+		  <value>root</value>
+	</property>
+	<property>
+		  <name>imagdata.jdbc.password</name>
+		  <value>wxm123456</value>
+	</property>
+	<property>
+		  <name>imag.entity.packagesToScan</name>
+		  <value>imag.crawler.examples.basic.entity</value>
+	</property>
+</configuration>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this configure file contain some global settings for the application -->
+<configuration>
+    <!-- define the name for this app. -->
+    <property>
+        <name>app.name</name>
+        <value>imagCrawler</value>
+    </property>
+    <!-- maven will add release property at here when package,default is false.-->
+    <!-- end release property -->
+    
+    <!--cas settings -->
+    <!--cas uel is the url of public cas server -->
+    <property>
+        <name>cas.url</name>
+        <value>http://users.imag2046.com</value>
+    </property>
+    <!--service ip is the ip address for public access -->
+    <property>
+        <name>service.ip</name>
+        <value>imagCrawler.imag2046.com</value>
+    </property>
+    
+    <!--service port is the port for public access ,config here if public access has a port -->
+	<!--   
+	<property>
+		<name>service.port</name>
+		<value>8080</value>
+	</property>
+	-->
+	<!--if the local service have another port ,could config here if local access port is not 8080.-->
+	<!--    
+	<property>
+		<name>debug.service.port</name>
+		<value>8080</value>
+	</property> 
+	-->
+	 
+	<!--memcached for session settings -->
+    <!-- memcached serverlist -->
+    <property>
+        <name>memcached.servers</name>
+        <value>localhost:11211</value>
+    </property>
+	<!-- memcached weights list for servers -->
+    <property>
+        <name>memcached.weights</name>
+        <value>1</value>
+    </property>
+    <!-- memcached init connects -->
+     <property>
+        <name>memcached.initConn</name>
+        <value>5</value>
+    </property>
+    <!-- memcached min connects -->
+     <property>
+        <name>memcached.minConn</name>
+        <value>5</value>
+    </property>
+    <!-- memcached max connects -->
+     <property>
+        <name>memcached.maxConn</name>
+        <value>250</value>
+    </property>
+     <!-- session expiry in memcached(config it in millsecond,defaule is 3000000,5 mins) -->
+    <property>
+        <name>memcached.session.expiry</name>
+        <value>300000</value>
+    </property>
+     <!-- session nameSpace in memcached(default value is : session ,all of keys for session is start with this value and _) -->
+    <property>
+        <name>memcached.session.nameSpace</name>
+        <value>sessions</value>
+    </property>
+</configuration>
