@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>imag</groupId>
-	<artifactId>imagProject</artifactId>
+	<artifactId>imagCS</artifactId>
 	<packaging>jar</packaging>
-	<name>imagProject</name>
+	<name>imagCS</name>
 	<version>4.2-SNAPSHOT</version>
 	<description>Open Source Web Crawler for Java</description>
 	
@@ -15,7 +15,7 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>https://github.com/imag2046/imagProject</url>
+		<url>https://github.com/imag2046/imagCS</url>
 		<connection>scm:git:git@github.com:imag2046/imagCS.git</connection>
 		<developerConnection>scm:git:git@github.com:imag2046/imagCS.git</developerConnection>
 	</scm>
