@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: lib/lakeside-core-1.0.1-20141012.110204-42.jar lib/lakeside-data-sql-1.0.1-20141012.110206-42.jar lib/lakeside-web-1.0.1-20141012.110207-26.jar
-Main-Class: imag.mycrawler.basic.BasicCrawlController
-
